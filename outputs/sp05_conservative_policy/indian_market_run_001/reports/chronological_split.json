@@ -1,0 +1,34 @@
+{
+  "candidate_boundaries": {
+    "train_end": "2021-09-03",
+    "validation_end": "2022-10-24"
+  },
+  "strict_sequence_isolation": true,
+  "sequence_length": 30,
+  "panel_bars": 5623266,
+  "assigned_window_complete_bars": 5483134,
+  "unassigned_bars_due_to_warmup_or_boundary_isolation": 140132,
+  "splits": {
+    "train": {
+      "first_decision_date": "2008-12-04",
+      "last_decision_date": "2021-09-03",
+      "eligible_bars": 3455587,
+      "eligible_bar_pct_of_panel": 61.45160125805893,
+      "eligible_bar_pct_of_assigned": 63.02211472490003
+    },
+    "val": {
+      "first_decision_date": "2021-10-19",
+      "last_decision_date": "2022-10-24",
+      "eligible_bars": 382123,
+      "eligible_bar_pct_of_panel": 6.795392570794268,
+      "eligible_bar_pct_of_assigned": 6.969061854041867
+    },
+    "test": {
+      "first_decision_date": "2022-12-07",
+      "last_decision_date": "2026-10-23",
+      "eligible_bars": 1645424,
+      "eligible_bar_pct_of_panel": 29.261002413899682,
+      "eligible_bar_pct_of_assigned": 30.008823421058104
+    }
+  }
+}

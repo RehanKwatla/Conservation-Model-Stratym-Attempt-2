@@ -1,0 +1,7 @@
+{
+  "full_training_proxy_samples": 10366761,
+  "fit_samples": 360000,
+  "max_fit_samples": 360000,
+  "method": "deterministic equal-weight proportional allocation by stock; evenly spaced sample bars within each stock",
+  "class_weights_fit_on": "all full training labels before fit subset selection"
+}

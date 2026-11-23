@@ -1,0 +1,69 @@
+{
+  "model_name": "SP-05 Conservative Risk-Aware Policy",
+  "policy_id": "SP-05",
+  "version": "1.0.0",
+  "artifact": "conservative_policy.pt",
+  "market": "Indian Equity Market (NSE/BSE)",
+  "benchmark": "NIFTY 50",
+  "seq_len": 30,
+  "allow_short": true,
+  "temperature": 1.2498507499694824,
+  "model": {
+    "n_features": 43,
+    "n_static": 12,
+    "n_actions": 4,
+    "encoder": "gru",
+    "hidden_size": 64,
+    "num_layers": 2,
+    "dropout": 0.25,
+    "static_hidden": 16,
+    "head_hidden": 64
+  },
+  "action_space": {
+    "0": "HOLD",
+    "1": "BUY",
+    "2": "SELL",
+    "3": "EXIT"
+  },
+  "label_source": "strategy_derived_proxy (conservative objective, decision-time)",
+  "label_note": "Labels are strategy-derived PROXY labels from an explicit conservative objective: NOT human demonstrations.",
+  "confidence_definition": "temperature-calibrated probability of the chosen action after masking invalid actions",
+  "authority": "This policy only PROPOSES actions. sp05_risk.RiskController has final authority over execution.",
+  "risk_limits": {
+    "allow_short": true,
+    "max_position_fraction": 0.1,
+    "max_gross_exposure": 0.6,
+    "position_stop_loss": 0.05,
+    "max_holding_bars": 120,
+    "halt_drawdown": 0.08,
+    "flatten_drawdown": 0.15,
+    "recent_loss_halt": 0.06,
+    "max_vol_percentile": 0.9,
+    "max_abs_gap_atr": 3.0,
+    "max_abnormal_ret_z": 4.0,
+    "market_stress_dd": 0.12,
+    "min_entry_confidence": 0.5
+  },
+  "execution_convention": "decision at close of bar t, fill at open of bar t+1",
+  "training": {
+    "epochs": 40,
+    "batch_size": 512,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 7,
+    "grad_clip": 1.0,
+    "input_noise_std": 0.02,
+    "max_class_weight": 20.0,
+    "max_fit_samples": 360000,
+    "scaler_clip": 5.0,
+    "seed": 42,
+    "best_epoch": 25,
+    "class_weights": [
+      0.8368983268737793,
+      20.0,
+      20.0,
+      0.6364398002624512
+    ],
+    "n_train_samples": 360000
+  }
+}

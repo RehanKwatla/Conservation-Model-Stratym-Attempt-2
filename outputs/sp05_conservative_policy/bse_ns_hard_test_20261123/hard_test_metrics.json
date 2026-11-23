@@ -1,0 +1,197 @@
+{
+  "test_source": "C:\\Users\\ssama\\Downloads\\BSE.NS_stock_data.csv",
+  "ticker": "BSE.NS",
+  "mapped_training_symbol": "BSE",
+  "symbol_in_main_training_universe": true,
+  "independent_unseen_stock_test": false,
+  "raw_rows": 1785,
+  "clean_rows": 1785,
+  "raw_file_start": "2017-02-03",
+  "raw_file_end": "2024-04-29",
+  "strict_test_boundary": "2022-10-24",
+  "test_decision_start": "2022-12-07",
+  "test_execution_start": "2022-12-08",
+  "test_end": "2024-04-29",
+  "test_sessions": 341,
+  "seq_len": 30,
+  "execution": "decision at close t; fill at open t+1",
+  "costs": {
+    "fee_bps_per_fill": 5.0,
+    "slippage_bps_per_fill": 5.0,
+    "short_borrow_bps_annual": 50.0
+  },
+  "profile": "balanced",
+  "controller_limits": {
+    "allow_short": true,
+    "max_position_fraction": 0.1,
+    "max_gross_exposure": 0.6,
+    "position_stop_loss": 0.05,
+    "max_holding_bars": 120,
+    "halt_drawdown": 0.08,
+    "flatten_drawdown": 0.15,
+    "recent_loss_halt": 0.06,
+    "max_vol_percentile": 0.9,
+    "max_abs_gap_atr": 3.0,
+    "max_abnormal_ret_z": 4.0,
+    "market_stress_dd": 0.12,
+    "min_entry_confidence": 0.5
+  },
+  "policy_plus_gate": {
+    "sessions": 341,
+    "total_return": 0.01799541667954241,
+    "cagr": 0.013267669290484063,
+    "annualized_volatility": 0.017837114546556822,
+    "max_drawdown": -0.01900586007237559,
+    "sharpe": -2.6159533606274925,
+    "sortino": -4.28117210185835,
+    "var_95_daily": -0.000970989121129584,
+    "cvar_95_daily": -0.00209124282922013,
+    "worst_day": -0.00732179953663592,
+    "entries": 8,
+    "closed_trades": 7,
+    "open_position_at_end": true,
+    "win_rate_closed_trades": 0.2857142857142857,
+    "average_closed_trade_return": 0.03435378544192037,
+    "annualized_turnover": 0.915295212240412,
+    "average_gross_exposure": 0.016084162296629078,
+    "maximum_gross_exposure": 0.12768704195124897,
+    "gate_overrides": 0
+  },
+  "BSE_NS_buy_and_hold": {
+    "sessions": 341,
+    "total_return": 3.8425793116088087,
+    "cagr": 2.2082907680234007,
+    "annualized_volatility": 0.47270008171860484,
+    "max_drawdown": -0.31015819561890534,
+    "sharpe": 2.5764414845044317,
+    "sortino": 4.7616182332575985,
+    "var_95_daily": -0.03321580336494945,
+    "cvar_95_daily": -0.05072787102678312,
+    "worst_day": -0.13677639029885025
+  },
+  "NIFTY_50_local_buy_and_hold": {
+    "sessions": 341,
+    "total_return": 0.21555992476051244,
+    "cagr": 0.15518087106624945,
+    "annualized_volatility": 0.10433323904705802,
+    "max_drawdown": -0.09191974020716198,
+    "sharpe": 0.8600167866491376,
+    "sortino": 1.2183373921113372,
+    "var_95_daily": -0.010489749274959825,
+    "cvar_95_daily": -0.013958626574914276,
+    "worst_day": -0.020894393512082443
+  },
+  "BSE_buy_and_hold_scaled_to_policy_average_exposure": {
+    "sessions": 341,
+    "total_return": 0.028161879087126973,
+    "cagr": 0.020736117670481446,
+    "annualized_volatility": 0.007602984831991869,
+    "max_drawdown": -0.0057600442323809675,
+    "sharpe": -5.188265609713984,
+    "sortino": -6.241236368743105,
+    "var_95_daily": -0.0005342483721347651,
+    "cvar_95_daily": -0.0008159153105572477,
+    "worst_day": -0.0021999336599137905
+  },
+  "NIFTY_50_scaled_to_policy_average_exposure": {
+    "sessions": 341,
+    "total_return": 0.0032621834131350003,
+    "cagr": 0.0024097382271528467,
+    "annualized_volatility": 0.0016781127497658794,
+    "max_drawdown": -0.0015181404390081088,
+    "sharpe": -34.319353771400955,
+    "sortino": -14.415879665408587,
+    "var_95_daily": -0.00016871882978940103,
+    "cvar_95_daily": -0.00022451281526896086,
+    "worst_day": -0.0003360688163379677
+  },
+  "comparison_to_local_training_series": {
+    "overlap_bars": 1513,
+    "return_correlation": 0.9973794099702363,
+    "mean_absolute_daily_return_difference": 0.00011582127709080332
+  },
+  "proposed_action_counts": {
+    "HOLD": 326,
+    "BUY": 8,
+    "EXIT": 7
+  },
+  "final_action_counts": {
+    "HOLD": 326,
+    "BUY": 8,
+    "EXIT": 7
+  },
+  "gate_override_reasons": {},
+  "trades": [
+    {
+      "entry_date": "2023-06-06",
+      "exit_date": "2023-06-12",
+      "side": "long",
+      "bars": 4,
+      "return": -0.03526828521677183,
+      "entry_confidence": 0.9914765954017639,
+      "exit_by": "policy"
+    },
+    {
+      "entry_date": "2023-06-13",
+      "exit_date": "2023-07-14",
+      "side": "long",
+      "bars": 22,
+      "return": 0.28991817676126397,
+      "entry_confidence": 0.9864913821220398,
+      "exit_by": "policy"
+    },
+    {
+      "entry_date": "2023-10-20",
+      "exit_date": "2023-11-03",
+      "side": "long",
+      "bars": 9,
+      "return": 0.15690703035579,
+      "entry_confidence": 0.6045069098472595,
+      "exit_by": "policy"
+    },
+    {
+      "entry_date": "2023-12-20",
+      "exit_date": "2023-12-21",
+      "side": "long",
+      "bars": 1,
+      "return": -0.04782117443973988,
+      "entry_confidence": 0.8617631793022156,
+      "exit_by": "policy"
+    },
+    {
+      "entry_date": "2023-12-22",
+      "exit_date": "2023-12-28",
+      "side": "long",
+      "bars": 3,
+      "return": -0.03021655742997209,
+      "entry_confidence": 0.883582353591919,
+      "exit_by": "policy"
+    },
+    {
+      "entry_date": "2023-12-29",
+      "exit_date": "2024-01-24",
+      "side": "long",
+      "bars": 17,
+      "return": -0.06510648419105936,
+      "entry_confidence": 0.9966818690299988,
+      "exit_by": "position_stop_loss"
+    },
+    {
+      "entry_date": "2024-02-06",
+      "exit_date": "2024-02-07",
+      "side": "long",
+      "bars": 1,
+      "return": -0.027936207746068198,
+      "entry_confidence": 0.6262415051460266,
+      "exit_by": "policy"
+    }
+  ],
+  "limitations": [
+    "BSE is part of the model's 1,795-stock training universe; this tests a later time period, not unseen-stock generalization.",
+    "The CSV overlaps the local BSE series on 1,514 dates, with near-identical daily returns; the post-validation period is temporally held out, but this is not independent market data.",
+    "Only one equity is tested; results do not represent a diversified portfolio or live trading.",
+    "The final open position is marked to market because no next bar exists for an additional next-open liquidation.",
+    "Long/short capability is theoretical; shorting results do not imply SEBI-compliant Indian cash-equity execution.",
+    "BSE.NS source history ends on 2024-04-29, so this is only a partial slice of the model's original chronological test horizon."
+  ]
+}

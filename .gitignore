@@ -1,0 +1,12 @@
+# Market data and locally derived price/feature caches (never commit these).
+Data/
+scratch/
+
+# Local Python/Jupyter state.
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Temporary editor files.
+*.tmp
+*.bak

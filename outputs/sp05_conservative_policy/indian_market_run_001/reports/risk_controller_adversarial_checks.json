@@ -1,0 +1,12 @@
+{
+  "portfolio_halt_blocks_high_confidence_buy": {
+    "passed": true,
+    "final_action": "HOLD",
+    "reason": "drawdown_halt"
+  },
+  "hard_stop_forces_exit_at_zero_confidence": {
+    "passed": true,
+    "final_action": "EXIT",
+    "reason": "position_stop_loss"
+  }
+}

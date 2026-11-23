@@ -1,0 +1,682 @@
+================================================================================
+SP-05 Conservative Risk-Aware Policy Training Pipeline
+Device: cpu (CPU)
+Artifact directory: C:\Users\ssama\OneDrive\Desktop\SP-5 ConservationModel Stratym-Attempt2\05_conservative_policy - Attempt 2\outputs\sp05_conservative_policy\indian_market_run_001
+================================================================================
+  Main training universe: 1795 approved candidate stocks
+  Unseen holdout cohort:  100 stocks
+  Top-20 liquid bluechips: 20 stocks
+  NIFTY 50 Benchmark: 4684 bars (2007-09-17 to 2026-10-23)
+
+Loading precomputed feature panels for main universe...
+Loaded 1795 stocks: 5,623,266 bars in 35.9s
+
+[Chronological Split with Strict Window Isolation (L=30)]
+  Train: <= 2021-09-03 | 3,455,587 bars (61.45%)
+  Val:   2021-09-04 to 2022-10-24 | 382,123 bars (6.80%)
+  Test:  > 2022-10-24 | 1,645,424 bars (29.26%)
+
+Fitting preprocessing scaler on training observations exclusively...
+Scaler fit on 3,497,779 rows with dates <= 2021-09-03
+Scaled feature matrix: shape (5623266, 43), dtype float32, min -5.00, max 5.00
+
+Generating training, validation, and testing proxy samples...
+================================================================================
+LABEL SOURCE: strategy_derived_proxy (conservative objective, decision-time)
+No future price used for any label. All proxy labels causal at bar t.
+================================================================================
+
+[Action Label Distribution]
+  train: HOLD: 4,433,706 (42.8%), BUY: 101,192 (1.0%), SELL: 1,679 (0.0%), EXIT: 5,830,184 (56.2%)
+    val: HOLD: 480,144 (41.9%), BUY: 7,416 (0.7%), SELL: 90 (0.0%), EXIT: 658,719 (57.5%)
+   test: HOLD: 2,126,502 (43.1%), BUY: 37,607 (0.8%), SELL: 1,461 (0.0%), EXIT: 2,770,702 (56.1%)
+  train: 10,366,761 samples | 2008-12-04 -> 2021-09-03
+  val  : 1,146,369 samples | 2021-10-19 -> 2022-10-24
+  test : 4,936,272 samples | 2022-12-07 -> 2026-10-23
+Chronology check passed: train < val < test (strict, no temporal overlap)
+
+Class weights (capped inverse-frequency): {'HOLD': 0.837, 'BUY': 20.0, 'SELL': 20.0, 'EXIT': 0.636}
+Training subset: 10,366,761 proxy labels generated; 360,000 deterministic stratified samples used for fitting across 1795 stocks.
+
+[Model Architecture - ConservativePolicyNet]
+ConservativePolicyNet(
+  (rnn): GRU(43, 64, num_layers=2, batch_first=True, dropout=0.25)
+  (static): Sequential(
+    (0): Linear(in_features=12, out_features=16, bias=True)
+    (1): GELU(approximate='none')
+  )
+  (head): Sequential(
+    (0): Linear(in_features=80, out_features=64, bias=True)
+    (1): GELU(approximate='none')
+    (2): Dropout(p=0.25, inplace=False)
+    (3): Linear(in_features=64, out_features=4, bias=True)
+  )
+)
+Trainable parameters: 51,540
+
+Starting training on cpu (360,000 samples, batch_size=512, max_epochs=40)...
+Epoch  1/40 | Train Loss: 0.2608 | Val Loss: 0.1349 | Val Macro-F1: 0.609 | LR: 1.0e-03 | Time: 280.9s * BEST
+Epoch  2/40 | Train Loss: 0.1473 | Val Loss: 0.1213 | Val Macro-F1: 0.683 | LR: 1.0e-03 | Time: 277.2s * BEST
+Epoch  3/40 | Train Loss: 0.1278 | Val Loss: 0.1037 | Val Macro-F1: 0.686 | LR: 1.0e-03 | Time: 295.1s * BEST
+Epoch  4/40 | Train Loss: 0.1166 | Val Loss: 0.0981 | Val Macro-F1: 0.639 | LR: 1.0e-03 | Time: 288.8s * BEST
+Epoch  5/40 | Train Loss: 0.1074 | Val Loss: 0.0894 | Val Macro-F1: 0.700 | LR: 1.0e-03 | Time: 307.3s * BEST
+Epoch  6/40 | Train Loss: 0.1005 | Val Loss: 0.0930 | Val Macro-F1: 0.628 | LR: 1.0e-03 | Time: 384.3s
+Epoch  7/40 | Train Loss: 0.0933 | Val Loss: 0.0793 | Val Macro-F1: 0.734 | LR: 1.0e-03 | Time: 148.4s * BEST
+Epoch  8/40 | Train Loss: 0.0876 | Val Loss: 0.0736 | Val Macro-F1: 0.728 | LR: 1.0e-03 | Time: 273.4s * BEST
+Epoch  9/40 | Train Loss: 0.0820 | Val Loss: 0.0675 | Val Macro-F1: 0.716 | LR: 1.0e-03 | Time: 531.7s * BEST
+Epoch 10/40 | Train Loss: 0.0747 | Val Loss: 0.0665 | Val Macro-F1: 0.742 | LR: 1.0e-03 | Time: 416.4s * BEST
+Epoch 11/40 | Train Loss: 0.0705 | Val Loss: 0.0657 | Val Macro-F1: 0.742 | LR: 1.0e-03 | Time: 185.6s * BEST
+Epoch 12/40 | Train Loss: 0.0669 | Val Loss: 0.0618 | Val Macro-F1: 0.778 | LR: 1.0e-03 | Time: 246.7s * BEST
+Epoch 13/40 | Train Loss: 0.0649 | Val Loss: 0.0594 | Val Macro-F1: 0.789 | LR: 1.0e-03 | Time: 578.2s * BEST
+================================================================================
+SP-05 Conservative Risk-Aware Policy Training Pipeline
+Device: cpu (CPU)
+Artifact directory: C:\Users\ssama\OneDrive\Desktop\SP-5 ConservationModel Stratym-Attempt2\05_conservative_policy - Attempt 2\outputs\sp05_conservative_policy\indian_market_run_001
+================================================================================
+  Main training universe: 1795 approved candidate stocks
+  Unseen holdout cohort:  100 stocks
+  Top-20 liquid bluechips: 20 stocks
+  NIFTY 50 Benchmark: 4684 bars (2007-09-17 to 2026-10-23)
+
+Loading precomputed feature panels for main universe...
+Loaded 1795 stocks: 5,623,266 bars in 37.9s
+
+[Chronological Split with Strict Window Isolation (L=30)]
+  Train: <= 2021-09-03 | 3,455,587 bars (61.45%)
+  Val:   2021-09-04 to 2022-10-24 | 382,123 bars (6.80%)
+  Test:  > 2022-10-24 | 1,645,424 bars (29.26%)
+
+Fitting preprocessing scaler on training observations exclusively...
+Scaler fit on 3,497,779 rows with dates <= 2021-09-03
+Scaled feature matrix: shape (5623266, 43), dtype float32, min -5.00, max 5.00
+
+Generating training, validation, and testing proxy samples...
+================================================================================
+LABEL SOURCE: strategy_derived_proxy (conservative objective, decision-time)
+No future price used for any label. All proxy labels causal at bar t.
+================================================================================
+
+[Action Label Distribution]
+  train: HOLD: 4,433,706 (42.8%), BUY: 101,192 (1.0%), SELL: 1,679 (0.0%), EXIT: 5,830,184 (56.2%)
+    val: HOLD: 480,144 (41.9%), BUY: 7,416 (0.7%), SELL: 90 (0.0%), EXIT: 658,719 (57.5%)
+   test: HOLD: 2,126,502 (43.1%), BUY: 37,607 (0.8%), SELL: 1,461 (0.0%), EXIT: 2,770,702 (56.1%)
+  train: 10,366,761 samples | 2008-12-04 -> 2021-09-03
+  val  : 1,146,369 samples | 2021-10-19 -> 2022-10-24
+  test : 4,936,272 samples | 2022-12-07 -> 2026-10-23
+Chronology check passed: train < val < test (strict, no temporal overlap)
+
+Class weights (capped inverse-frequency): {'HOLD': 0.837, 'BUY': 20.0, 'SELL': 20.0, 'EXIT': 0.636}
+Training subset: 10,366,761 proxy labels generated; 360,000 deterministic stratified samples used for fitting across 1795 stocks.
+
+[Model Architecture - ConservativePolicyNet]
+ConservativePolicyNet(
+  (rnn): GRU(43, 64, num_layers=2, batch_first=True, dropout=0.25)
+  (static): Sequential(
+    (0): Linear(in_features=12, out_features=16, bias=True)
+    (1): GELU(approximate='none')
+  )
+  (head): Sequential(
+    (0): Linear(in_features=80, out_features=64, bias=True)
+    (1): GELU(approximate='none')
+    (2): Dropout(p=0.25, inplace=False)
+    (3): Linear(in_features=64, out_features=4, bias=True)
+  )
+)
+Trainable parameters: 51,540
+
+Starting training on cpu (360,000 samples, batch_size=512, max_epochs=40)...
+Resuming same fresh-initialization run at epoch 14; recovered 13 epoch records.
+================================================================================
+SP-05 Conservative Risk-Aware Policy Training Pipeline
+Device: cpu (CPU)
+Artifact directory: C:\Users\ssama\OneDrive\Desktop\SP-5 ConservationModel Stratym-Attempt2\05_conservative_policy - Attempt 2\outputs\sp05_conservative_policy\indian_market_run_001
+================================================================================
+  Main training universe: 1795 approved candidate stocks
+  Unseen holdout cohort:  100 stocks
+  Top-20 liquid bluechips: 20 stocks
+  NIFTY 50 Benchmark: 4684 bars (2007-09-17 to 2026-10-23)
+
+Loading precomputed feature panels for main universe...
+Loaded 1795 stocks: 5,623,266 bars in 24.4s
+
+[Chronological Split with Strict Window Isolation (L=30)]
+  Train: <= 2021-09-03 | 3,455,587 bars (61.45%)
+  Val:   2021-09-04 to 2022-10-24 | 382,123 bars (6.80%)
+  Test:  > 2022-10-24 | 1,645,424 bars (29.26%)
+
+Fitting preprocessing scaler on training observations exclusively...
+Scaler fit on 3,497,779 rows with dates <= 2021-09-03
+Scaled feature matrix: shape (5623266, 43), dtype float32, min -5.00, max 5.00
+
+Generating training, validation, and testing proxy samples...
+================================================================================
+LABEL SOURCE: strategy_derived_proxy (conservative objective, decision-time)
+No future price used for any label. All proxy labels causal at bar t.
+================================================================================
+
+[Action Label Distribution]
+  train: HOLD: 4,433,706 (42.8%), BUY: 101,192 (1.0%), SELL: 1,679 (0.0%), EXIT: 5,830,184 (56.2%)
+    val: HOLD: 480,144 (41.9%), BUY: 7,416 (0.7%), SELL: 90 (0.0%), EXIT: 658,719 (57.5%)
+   test: HOLD: 2,126,502 (43.1%), BUY: 37,607 (0.8%), SELL: 1,461 (0.0%), EXIT: 2,770,702 (56.1%)
+  train: 10,366,761 samples | 2008-12-04 -> 2021-09-03
+  val  : 1,146,369 samples | 2021-10-19 -> 2022-10-24
+  test : 4,936,272 samples | 2022-12-07 -> 2026-10-23
+Chronology check passed: train < val < test (strict, no temporal overlap)
+
+Class weights (capped inverse-frequency): {'HOLD': 0.837, 'BUY': 20.0, 'SELL': 20.0, 'EXIT': 0.636}
+Training subset: 10,366,761 proxy labels generated; 360,000 deterministic stratified samples used for fitting across 1795 stocks.
+
+[Model Architecture - ConservativePolicyNet]
+ConservativePolicyNet(
+  (rnn): GRU(43, 64, num_layers=2, batch_first=True, dropout=0.25)
+  (static): Sequential(
+    (0): Linear(in_features=12, out_features=16, bias=True)
+    (1): GELU(approximate='none')
+  )
+  (head): Sequential(
+    (0): Linear(in_features=80, out_features=64, bias=True)
+    (1): GELU(approximate='none')
+    (2): Dropout(p=0.25, inplace=False)
+    (3): Linear(in_features=64, out_features=4, bias=True)
+  )
+)
+Trainable parameters: 51,540
+
+Starting training on cpu (360,000 samples, batch_size=512, max_epochs=40)...
+
+Evaluation continuation loaded this run's epoch 13 best checkpoint (val loss 0.0594).
+
+Fitted Temperature (Validation Only): 1.102
+
+[VAL] Acc: 0.978 | Bal Acc: 0.902 | Macro-F1: 0.789 | Weighted-F1: 0.978
+        NLL: 0.0536 | ECE: 0.0003
+      precision  recall     f1   support
+HOLD      0.971   0.976  0.974  480144.0
+BUY       0.590   0.977  0.735    7416.0
+SELL      0.351   0.678  0.462      90.0
+EXIT      0.990   0.979  0.985  658719.0
+
+[TEST] Acc: 0.975 | Bal Acc: 0.930 | Macro-F1: 0.802 | Weighted-F1: 0.976
+        NLL: 0.0594 | ECE: 0.0005 (Uncalibrated: NLL 0.0598, ECE 0.0026)
+      precision  recall     f1    support
+HOLD      0.969   0.973  0.971  2126502.0
+BUY       0.583   0.980  0.731    37607.0
+SELL      0.391   0.790  0.523     1461.0
+EXIT      0.989   0.977  0.983  2770702.0
+RiskController adversarial checks passed: halted BUY blocked; hard stop forced EXIT.
+
+[VAL] Classification by Risk Condition:
+                                                                              n  accuracy  macro_f1  pred_HOLD  pred_BUY  pred_SELL  pred_EXIT
+condition                                                                                                                                     
+flat: calm, portfolio within soft limits                                  76191     0.971     0.798      66903      9150        138          0
+flat: entry PROHIBITED (volatility / abnormal move / market stress)      135686     0.990     0.332     134276      1389         21          0
+flat: portfolio soft limit breached (drawdown / exposure / recent loss)  170246     0.990     0.332     168484      1747         15          0
+holding: risk elevated (vol spike / de-risk trigger)                     268709     0.988     0.497       3122         0          0     265587
+holding: calm                                                            495537     0.966     0.950     109500         0          0     386037
+[VAL] Entry Proposals in Forbidden States: {'flat_forbidden_states': 305932, 'network_proposes_entry_in_forbidden_states_pct': 1.0368317142371508, 'labels_with_entry_in_forbidden_states_pct': 0.0}
+
+[TEST] Classification by Risk Condition:
+                                                                               n  accuracy  macro_f1  pred_HOLD  pred_BUY  pred_SELL  pred_EXIT
+condition                                                                                                                                      
+flat: calm, portfolio within soft limits                                  354399     0.963     0.807     304176     47685       2538          0
+flat: entry PROHIBITED (volatility / abnormal move / market stress)       505791     0.987     0.331     499128      6557        106          0
+flat: portfolio soft limit breached (drawdown / exposure / recent loss)   785234     0.988     0.331     775965      8958        311          0
+holding: risk elevated (vol spike / de-risk trigger)                     1186475     0.984     0.496      19439         0          0    1167036
+holding: calm                                                            2104373     0.965     0.953     535827         0          0    1568546
+[TEST] Entry Proposals in Forbidden States: {'flat_forbidden_states': 1291025, 'network_proposes_entry_in_forbidden_states_pct': 1.2340582095621695, 'labels_with_entry_in_forbidden_states_pct': 0.0}
+
+================================================================================
+RUNNING GENERALIZATION EXPERIMENTS
+================================================================================
+
+--- Experiment B: Unseen-Stock Holdout Cohort (100 stocks) ---
+Unseen cohort test rows: 90,378 across 100 stocks
+Unseen Cohort [TEST]: Acc 0.863 | Bal Acc 0.460 | Macro-F1 0.455 | ECE 0.1168
+      precision  recall     f1   support
+HOLD      0.871   0.800  0.834  116729.0
+BUY       0.072   0.118  0.090    2179.0
+SELL      0.000   0.000  0.000      54.0
+EXIT      0.876   0.922  0.898  152172.0
+
+--- Experiment C: Top-20 Liquid Bluechips Cohort ---
+Bluechip test rows: 18,743 across 20 bluechips
+Top-20 Bluechips [TEST]: Acc 0.970 | Bal Acc 0.868 | Macro-F1 0.763 | ECE 0.0013
+      precision  recall     f1  support
+HOLD      0.966   0.967  0.966  25072.0
+BUY       0.654   0.975  0.783    889.0
+SELL      0.227   0.556  0.323      9.0
+EXIT      0.988   0.972  0.980  30259.0
+
+--- Experiment D: Trader Profile Sensitivity ---
+Profile: balanced     | HOLD: 47.4% | BUY: 3.0% | SELL: 0.2% | EXIT: 49.4% | F1: 0.717
+Profile: conservative | HOLD: 44.3% | BUY: 1.7% | SELL: 0.0% | EXIT: 54.0% | F1: 0.661
+Profile: aggressive   | HOLD: 49.9% | BUY: 5.7% | SELL: 1.1% | EXIT: 43.3% | F1: 0.823
+
+--- Experiment E: Market Regime Evaluation (Test Split) ---
+Regime: Bull Market                         | N: 2,825,094 | Acc: 0.972 | Macro-F1: 0.799 | HOLD: 44.2%
+Regime: Bear Market                         | N: 1,072,095 | Acc: 0.982 | Macro-F1: 0.793 | HOLD: 41.0%
+Regime: Sideways/Chop                       | N: 1,039,083 | Acc: 0.977 | Macro-F1: 0.812 | HOLD: 43.0%
+Regime: High Volatility (>=85%ile)          | N: 629,517 | Acc: 0.978 | Macro-F1: 0.784 | HOLD: 40.9%
+Regime: Low Volatility (<30%ile)            | N: 1,911,996 | Acc: 0.971 | Macro-F1: 0.805 | HOLD: 45.1%
+Regime: Severe Benchmark Drawdown (<= -10%) | N: 675,849 | Acc: 0.983 | Macro-F1: 0.784 | HOLD: 40.5%
+
+================================================================================
+PORTFOLIO BACKTESTING (Top-20 Liquid Indian Bluechips)
+Decision at close t, Fill at open t+1, 5 bps fee + 5 bps slippage
+================================================================================
+
+===== VAL Backtest (2022-10-10 to 2022-10-24 | 11 days | Capital INR 1,000,000) =====
+                                                                   total_return  sharpe  sortino  max_drawdown  cvar_95_daily  worst_day  annualized_turnover  avg_gross_exposure  trade_entries  gate_overrides
+SP-05 policy + gate (balanced, long/short)                                0.014   3.768    6.768        -0.011         -0.006     -0.006               16.511               0.474            7.0             2.0
+SP-05 policy + gate (conservative, long/short)                            0.006   3.271    6.583        -0.003         -0.002     -0.002                5.699               0.118            3.0             0.0
+SP-05 policy + gate (aggressive, long/short)                              0.024   6.512   12.859        -0.008         -0.006     -0.006               13.121               0.559            6.0             3.0
+SP-05 policy + gate (balanced, long-only)                                 0.014   3.768    6.768        -0.011         -0.006     -0.006               16.511               0.474            7.0             2.0
+SP-05 policy ALONE, no gate (balanced, long/short)                        0.010   2.464    3.853        -0.012         -0.008     -0.008               21.307               0.497            8.0             0.0
+Rule-based risk controller + gate (long-only)                             0.037   8.271   15.744        -0.009         -0.009     -0.009               13.745               0.606            6.0            20.0
+Always-long + gate (gate-only baseline)                                   0.021   4.083    6.510        -0.017         -0.012     -0.012               15.906               0.535            6.0           140.0
+Conservative label rule + gate (balanced, long/short)                     0.014   4.129    7.721        -0.010         -0.005     -0.005               18.315               0.410            6.0             1.0
+NIFTY 50 buy & hold                                                       0.024   3.865    5.994        -0.019         -0.015     -0.015                0.000               1.000            NaN             NaN
+Equal-weight universe buy & hold                                          0.013   1.679    2.360        -0.023         -0.019     -0.019                0.000               1.000            NaN             NaN
+NIFTY 50 scaled to the main run's average exposure (rest in cash)         0.011   3.342    5.064        -0.009         -0.007     -0.007                0.000               0.474            NaN             NaN
+
+===== TEST Backtest (2024-10-18 to 2026-10-23 | 495 days | Capital INR 1,000,000) =====
+                                                                   total_return  sharpe  sortino  max_drawdown  cvar_95_daily  worst_day  annualized_turnover  avg_gross_exposure  trade_entries  gate_overrides
+SP-05 policy + gate (balanced, long/short)                               -0.092  -1.998   -2.549        -0.116         -0.009     -0.015                9.026               0.228          123.0           170.0
+SP-05 policy + gate (conservative, long/short)                           -0.047  -1.964   -2.438        -0.073         -0.007     -0.015                4.406               0.162           68.0             7.0
+SP-05 policy + gate (aggressive, long/short)                             -0.032  -1.135   -1.560        -0.107         -0.010     -0.019               18.894               0.252          255.0           294.0
+SP-05 policy + gate (balanced, long-only)                                -0.086  -1.960   -2.523        -0.110         -0.008     -0.015                8.770               0.220          119.0           109.0
+SP-05 policy ALONE, no gate (balanced, long/short)                       -0.072  -1.896   -2.426        -0.097         -0.008     -0.015                8.616               0.233          123.0             0.0
+Rule-based risk controller + gate (long-only)                             0.049  -0.394   -0.529        -0.098         -0.013     -0.021                5.509               0.422           56.0          1446.0
+Always-long + gate (gate-only baseline)                                  -0.027  -0.827   -1.150        -0.112         -0.011     -0.020                4.883               0.508           50.0          7560.0
+Conservative label rule + gate (balanced, long/short)                    -0.051  -1.523   -1.988        -0.083         -0.009     -0.018                5.287               0.224           52.0            35.0
+NIFTY 50 buy & hold                                                      -0.087  -0.734   -1.013        -0.156         -0.018     -0.033                0.000               1.000            NaN             NaN
+Equal-weight universe buy & hold                                          0.068  -0.066   -0.093        -0.170         -0.025     -0.039                0.000               1.000            NaN             NaN
+NIFTY 50 scaled to the main run's average exposure (rest in cash)        -0.018  -2.261   -2.904        -0.036         -0.004     -0.007                0.000               0.228            NaN             NaN
+
+================================================================================
+GATE OVERRIDES & STRESS TESTING ANALYSIS
+================================================================================
+
+Gate Overrides by Reason (TEST split):
+                                                       position_stop_loss  max_holding_period  drawdown_halt  recent_loss_halt  volatility_prohibited  abnormal_gap_or_move  market_stress  gross_exposure_limit
+SP-05 policy + gate (balanced, long/short)                             14                   0              0                 0                     27                     0              0                   143
+SP-05 policy + gate (conservative, long/short)                          9                   0              0                 0                      6                     0              0                     1
+SP-05 policy + gate (aggressive, long/short)                           11                   0              0                 0                     18                     3              0                   273
+SP-05 policy + gate (balanced, long-only)                              12                   0              0                 0                     26                     0              0                    83
+Rule-based risk controller + gate (long-only)                          26                   3             91                 2                     72                     8              1                  1260
+Always-long + gate (gate-only baseline)                                36                  10           1054               212                   1190                    44            164                  5541
+Conservative label rule + gate (balanced, long/short)                   4                   0              0                 0                     14                     0              0                    21
+
+Blocked Entries Hindsight 10-bar Forward Return Analysis:
+[VAL] (Negative mean return = gate avoided a loss):
+                       blocked_entries  mean_dir_adj_fwd_return  share_that_would_have_lost
+reason                                                                                     
+volatility_prohibited                2                  -0.0055                         1.0
+[TEST] (Negative mean return = gate avoided a loss):
+                       blocked_entries  mean_dir_adj_fwd_return  share_that_would_have_lost
+reason                                                                                     
+gross_exposure_limit               143                   0.0087                      0.4336
+volatility_prohibited               27                   0.0249                      0.2963
+
+[VAL] Closed Trades by Exit Authority:
+         trades  mean_return  win_rate  median_bars
+exit_by                                            
+policy        1       0.0125       1.0          4.0
+
+[TEST] Closed Trades by Exit Authority:
+                          trades  mean_return  win_rate  median_bars
+exit_by                                                             
+gate: position_stop_loss      14      -0.0597    0.0000          2.0
+policy                       108      -0.0036    0.2963          3.5
+
+Compounded Return by Stress Period (val+test):
+period                                              any stress  high_vol  normal  severe_drawdown
+strategy                                                                                         
+SP-05 policy + gate (balanced, long/short)               0.003    -0.012  -0.081            0.015
+SP-05 policy ALONE, no gate (balanced, long/short)       0.004    -0.010  -0.067            0.015
+Rule-based risk controller + gate (long-only)            0.096     0.056  -0.006            0.036
+Always-long + gate (gate-only baseline)                  0.054     0.046  -0.058            0.015
+NIFTY 50 buy & hold                                      0.184     0.126  -0.210            0.097
+Equal-weight universe buy & hold                         0.286     0.197  -0.159            0.139
+
+Downside Capture on Sharp Market Down Days:
+                   days  NIFTY mean return  SP-05 policy + gate (balanced, long/short)  SP-05 policy ALONE, no gate (balanced, long/short)  Rule-based risk controller + gate (long-only)  Always-long + gate (gate-only baseline)
+NIFTY 50 <= -1.5%  19.0            -0.0195                                     -0.0035                                             -0.0032                                        -0.0054                                  -0.0092
+NIFTY 50 <= -2.0%   7.0            -0.0250                                     -0.0014                                             -0.0014                                        -0.0022                                  -0.0105
+
+Gap-Loss Budget on Open Gross Exposure:
+                                                    mean_exposure  p95_exposure  max_exposure  loss_at_max_exposure_gap_5%  loss_at_max_exposure_gap_10%  loss_at_max_exposure_gap_20%
+SP-05 policy + gate (balanced, long/short)                  0.234         0.524         0.596                       -0.030                        -0.060                        -0.119
+SP-05 policy ALONE, no gate (balanced, long/short)          0.239         0.605         0.899                       -0.045                        -0.090                        -0.180
+Rule-based risk controller + gate (long-only)               0.426         0.559         0.615                       -0.031                        -0.061                        -0.123
+Always-long + gate (gate-only baseline)                     0.509         0.578         0.604                       -0.030                        -0.060                        -0.121
+
+Worst Drawdown Episodes (Main Run):
+ peak_date trough_date     depth  days_peak_to_trough  recovered_on  days_underwater
+2024-12-17  2026-10-23 -0.115818                  454 NOT RECOVERED              454
+2024-11-08  2024-11-13 -0.014679                    3    2024-12-05               17
+2024-10-18  2024-10-30 -0.005580                    8    2024-11-07               14
+
+Worst 5 Trading Days (Main Run):
+      date  main_return  bench_return  gross_exposure  portfolio_drawdown  gate_overrides_that_day
+2026-09-15      -0.0153       -0.0119          0.3282              0.0320                        0
+2024-12-20      -0.0110       -0.0152          0.3172              0.0143                        0
+2026-06-29      -0.0110       -0.0046          0.3096              0.0347                        0
+2025-07-25      -0.0105       -0.0090          0.4706              0.0474                        0
+2024-11-13      -0.0098       -0.0136          0.2060              0.0147                        0
+
+================================================================================
+GENERATING EVALUATION PLOTS
+================================================================================
+All 9 evaluation figures generated and saved to outputs/figures!
+
+================================================================================
+SAVING STANDARDIZED ARTIFACTS
+================================================================================
+Saved evaluation_metrics.json
+
+Verifying reload check and round-trip assertions...
+Reload check and round-trip assertions PASSED!
+
+[Artifact Verification]
+  [OK] conservative_policy.pt         (   214.6 KiB)
+  [OK] best_checkpoint.pt             (   206.3 KiB)
+  [OK] final_checkpoint.pt            (   206.4 KiB)
+  [OK] conservative_config.json       (     2.0 KiB)
+  [OK] feature_schema.json            (     8.1 KiB)
+  [OK] preprocessing.pkl              (     1.3 KiB)
+  [OK] evaluation_metrics.json        (    94.9 KiB)
+  [OK] training_history.csv           (     0.5 KiB)
+  [OK] equity_curve.csv               (   111.3 KiB)
+  [OK] sp05_features.py               (    21.7 KiB)
+  [OK] sp05_risk.py                   (     8.8 KiB)
+  [OK] sp05_model.py                  (    12.8 KiB)
+
+================================================================================
+TRAINING AND EVALUATION PIPELINE COMPLETED SUCCESSFULLY!
+================================================================================
+================================================================================
+SP-05 Conservative Risk-Aware Policy Training Pipeline
+Device: cpu (CPU)
+Artifact directory: C:\Users\ssama\OneDrive\Desktop\SP-5 ConservationModel Stratym-Attempt2\05_conservative_policy - Attempt 2\outputs\sp05_conservative_policy\indian_market_run_001
+================================================================================
+  Main training universe: 1795 approved candidate stocks
+  Unseen holdout cohort:  100 stocks
+  Top-20 liquid bluechips: 20 stocks
+  NIFTY 50 Benchmark: 4684 bars (2007-09-17 to 2026-10-23)
+
+Loading precomputed feature panels for main universe...
+Loaded 1795 stocks: 5,623,266 bars in 14.7s
+
+[Chronological Split with Strict Window Isolation (L=30)]
+  Train: <= 2021-09-03 | 3,455,587 bars (61.45%)
+  Val:   2021-09-04 to 2022-10-24 | 382,123 bars (6.80%)
+  Test:  > 2022-10-24 | 1,645,424 bars (29.26%)
+
+Fitting preprocessing scaler on training observations exclusively...
+Scaler fit on 3,497,779 rows with dates <= 2021-09-03
+Scaled feature matrix: shape (5623266, 43), dtype float32, min -5.00, max 5.00
+
+Generating training, validation, and testing proxy samples...
+================================================================================
+LABEL SOURCE: strategy_derived_proxy (conservative objective, decision-time)
+No future price used for any label. All proxy labels causal at bar t.
+================================================================================
+
+[Action Label Distribution]
+  train: HOLD: 4,433,706 (42.8%), BUY: 101,192 (1.0%), SELL: 1,679 (0.0%), EXIT: 5,830,184 (56.2%)
+    val: HOLD: 480,144 (41.9%), BUY: 7,416 (0.7%), SELL: 90 (0.0%), EXIT: 658,719 (57.5%)
+   test: HOLD: 2,126,502 (43.1%), BUY: 37,607 (0.8%), SELL: 1,461 (0.0%), EXIT: 2,770,702 (56.1%)
+  train: 10,366,761 samples | 2008-12-04 -> 2021-09-03
+  val  : 1,146,369 samples | 2021-10-19 -> 2022-10-24
+  test : 4,936,272 samples | 2022-12-07 -> 2026-10-23
+Chronology check passed: train < val < test (strict, no temporal overlap)
+
+Class weights (capped inverse-frequency): {'HOLD': 0.837, 'BUY': 20.0, 'SELL': 20.0, 'EXIT': 0.636}
+Training subset: 10,366,761 proxy labels generated; 360,000 deterministic stratified samples used for fitting across 1795 stocks.
+
+[Model Architecture - ConservativePolicyNet]
+ConservativePolicyNet(
+  (rnn): GRU(43, 64, num_layers=2, batch_first=True, dropout=0.25)
+  (static): Sequential(
+    (0): Linear(in_features=12, out_features=16, bias=True)
+    (1): GELU(approximate='none')
+  )
+  (head): Sequential(
+    (0): Linear(in_features=80, out_features=64, bias=True)
+    (1): GELU(approximate='none')
+    (2): Dropout(p=0.25, inplace=False)
+    (3): Linear(in_features=64, out_features=4, bias=True)
+  )
+)
+Trainable parameters: 51,540
+
+Starting training on cpu (360,000 samples, batch_size=512, max_epochs=40)...
+Resuming same fresh-initialization run at epoch 14; recovered 13 epoch records.
+Epoch 14/40 | Train Loss: 0.0622 | Val Loss: 0.0673 | Val Macro-F1: 0.807 | LR: 1.0e-03 | Time: 161.4s
+Epoch 15/40 | Train Loss: 0.0580 | Val Loss: 0.0644 | Val Macro-F1: 0.794 | LR: 1.0e-03 | Time: 165.2s
+Epoch 16/40 | Train Loss: 0.0574 | Val Loss: 0.0564 | Val Macro-F1: 0.783 | LR: 1.0e-03 | Time: 169.6s * BEST
+Epoch 17/40 | Train Loss: 0.0563 | Val Loss: 0.0560 | Val Macro-F1: 0.787 | LR: 1.0e-03 | Time: 175.0s * BEST
+Epoch 18/40 | Train Loss: 0.0540 | Val Loss: 0.0561 | Val Macro-F1: 0.768 | LR: 1.0e-03 | Time: 181.5s
+Epoch 19/40 | Train Loss: 0.0514 | Val Loss: 0.0554 | Val Macro-F1: 0.734 | LR: 1.0e-03 | Time: 195.9s * BEST
+Epoch 20/40 | Train Loss: 0.0519 | Val Loss: 0.0604 | Val Macro-F1: 0.807 | LR: 1.0e-03 | Time: 202.1s
+Epoch 21/40 | Train Loss: 0.0501 | Val Loss: 0.0631 | Val Macro-F1: 0.811 | LR: 1.0e-03 | Time: 213.4s
+Epoch 22/40 | Train Loss: 0.0496 | Val Loss: 0.0622 | Val Macro-F1: 0.807 | LR: 5.0e-04 | Time: 217.3s
+Epoch 23/40 | Train Loss: 0.0426 | Val Loss: 0.0558 | Val Macro-F1: 0.797 | LR: 5.0e-04 | Time: 228.9s
+Epoch 24/40 | Train Loss: 0.0415 | Val Loss: 0.0569 | Val Macro-F1: 0.810 | LR: 5.0e-04 | Time: 229.6s
+Epoch 25/40 | Train Loss: 0.0399 | Val Loss: 0.0534 | Val Macro-F1: 0.811 | LR: 5.0e-04 | Time: 240.1s * BEST
+Epoch 26/40 | Train Loss: 0.0400 | Val Loss: 0.0690 | Val Macro-F1: 0.823 | LR: 5.0e-04 | Time: 247.3s
+Epoch 27/40 | Train Loss: 0.0401 | Val Loss: 0.0576 | Val Macro-F1: 0.784 | LR: 5.0e-04 | Time: 252.5s
+Epoch 28/40 | Train Loss: 0.0390 | Val Loss: 0.0602 | Val Macro-F1: 0.827 | LR: 2.5e-04 | Time: 259.5s
+Epoch 29/40 | Train Loss: 0.0359 | Val Loss: 0.0585 | Val Macro-F1: 0.817 | LR: 2.5e-04 | Time: 264.3s
+Epoch 30/40 | Train Loss: 0.0360 | Val Loss: 0.0645 | Val Macro-F1: 0.830 | LR: 2.5e-04 | Time: 267.9s
+Epoch 31/40 | Train Loss: 0.0343 | Val Loss: 0.0702 | Val Macro-F1: 0.834 | LR: 1.3e-04 | Time: 269.2s
+Epoch 32/40 | Train Loss: 0.0336 | Val Loss: 0.0610 | Val Macro-F1: 0.823 | LR: 1.3e-04 | Time: 626.4s
+Early stopping at epoch 32 (no validation loss improvement for 7 epochs)
+
+Training Complete! Best Epoch: 25 | Best Val Loss: 0.0534 | Total Time: 4566.9s
+
+Fitted Temperature (Validation Only): 1.250
+
+[VAL] Acc: 0.983 | Bal Acc: 0.886 | Macro-F1: 0.811 | Weighted-F1: 0.983
+        NLL: 0.0419 | ECE: 0.0010
+      precision  recall     f1   support
+HOLD      0.978   0.982  0.980  480144.0
+BUY       0.669   0.976  0.794    7416.0
+SELL      0.403   0.600  0.482      90.0
+EXIT      0.992   0.984  0.988  658719.0
+
+[TEST] Acc: 0.981 | Bal Acc: 0.920 | Macro-F1: 0.820 | Weighted-F1: 0.982
+        NLL: 0.0459 | ECE: 0.0009 (Uncalibrated: NLL 0.0473, ECE 0.0036)
+      precision  recall     f1    support
+HOLD      0.978   0.980  0.979  2126502.0
+BUY       0.658   0.985  0.789    37607.0
+SELL      0.410   0.731  0.525     1461.0
+EXIT      0.992   0.983  0.987  2770702.0
+RiskController adversarial checks passed: halted BUY blocked; hard stop forced EXIT.
+
+[VAL] Classification by Risk Condition:
+                                                                              n  accuracy  macro_f1  pred_HOLD  pred_BUY  pred_SELL  pred_EXIT
+condition                                                                                                                                     
+flat: calm, portfolio within soft limits                                  76191     0.973     0.802      67091      8989        111          0
+flat: entry PROHIBITED (volatility / abnormal move / market stress)      135686     0.993     0.332     134778       892         16          0
+flat: portfolio soft limit breached (drawdown / exposure / recent loss)  170246     0.994     0.332     169292       947          7          0
+holding: risk elevated (vol spike / de-risk trigger)                     268709     0.995     0.499       1295         0          0     267414
+holding: calm                                                            495537     0.972     0.958     109334         0          0     386203
+[VAL] Entry Proposals in Forbidden States: {'flat_forbidden_states': 305932, 'network_proposes_entry_in_forbidden_states_pct': 0.60863198357805, 'labels_with_entry_in_forbidden_states_pct': 0.0}
+
+[TEST] Classification by Risk Condition:
+                                                                               n  accuracy  macro_f1  pred_HOLD  pred_BUY  pred_SELL  pred_EXIT
+condition                                                                                                                                      
+flat: calm, portfolio within soft limits                                  354399     0.964     0.806     304654     47434       2311          0
+flat: entry PROHIBITED (volatility / abnormal move / market stress)       505791     0.992     0.332     501986      3708         97          0
+flat: portfolio soft limit breached (drawdown / exposure / recent loss)   785234     0.993     0.332     779874      5162        198          0
+holding: risk elevated (vol spike / de-risk trigger)                     1186475     0.993     0.498       7767         0          0    1178708
+holding: calm                                                            2104373     0.971     0.961     536644         0          0    1567729
+[TEST] Entry Proposals in Forbidden States: {'flat_forbidden_states': 1291025, 'network_proposes_entry_in_forbidden_states_pct': 0.7099010476172033, 'labels_with_entry_in_forbidden_states_pct': 0.0}
+
+================================================================================
+RUNNING GENERALIZATION EXPERIMENTS
+================================================================================
+
+--- Experiment B: Unseen-Stock Holdout Cohort (100 stocks) ---
+Unseen cohort test rows: 90,378 across 100 stocks
+Unseen Cohort [TEST]: Acc 0.864 | Bal Acc 0.460 | Macro-F1 0.457 | ECE 0.1201
+      precision  recall     f1   support
+HOLD      0.873   0.802  0.836  116729.0
+BUY       0.080   0.116  0.095    2179.0
+SELL      0.000   0.000  0.000      54.0
+EXIT      0.875   0.923  0.898  152172.0
+
+--- Experiment C: Top-20 Liquid Bluechips Cohort ---
+Bluechip test rows: 18,743 across 20 bluechips
+Top-20 Bluechips [TEST]: Acc 0.976 | Bal Acc 0.847 | Macro-F1 0.769 | ECE 0.0018
+      precision  recall     f1  support
+HOLD      0.974   0.972  0.973  25072.0
+BUY       0.687   0.992  0.812    889.0
+SELL      0.235   0.444  0.308      9.0
+EXIT      0.991   0.979  0.985  30259.0
+
+--- Experiment D: Trader Profile Sensitivity ---
+Profile: balanced     | HOLD: 47.8% | BUY: 2.7% | SELL: 0.1% | EXIT: 49.4% | F1: 0.802
+Profile: conservative | HOLD: 44.4% | BUY: 1.5% | SELL: 0.0% | EXIT: 54.0% | F1: 0.679
+Profile: aggressive   | HOLD: 50.1% | BUY: 5.4% | SELL: 0.9% | EXIT: 43.5% | F1: 0.843
+
+--- Experiment E: Market Regime Evaluation (Test Split) ---
+Regime: Bull Market                         | N: 2,825,094 | Acc: 0.980 | Macro-F1: 0.819 | HOLD: 43.9%
+Regime: Bear Market                         | N: 1,072,095 | Acc: 0.985 | Macro-F1: 0.804 | HOLD: 41.3%
+Regime: Sideways/Chop                       | N: 1,039,083 | Acc: 0.982 | Macro-F1: 0.830 | HOLD: 43.1%
+Regime: High Volatility (>=85%ile)          | N: 629,517 | Acc: 0.984 | Macro-F1: 0.802 | HOLD: 40.7%
+Regime: Low Volatility (<30%ile)            | N: 1,911,996 | Acc: 0.979 | Macro-F1: 0.822 | HOLD: 44.9%
+Regime: Severe Benchmark Drawdown (<= -10%) | N: 675,849 | Acc: 0.986 | Macro-F1: 0.798 | HOLD: 40.8%
+
+================================================================================
+PORTFOLIO BACKTESTING (Top-20 Liquid Indian Bluechips)
+Decision at close t, Fill at open t+1, 5 bps fee + 5 bps slippage
+================================================================================
+
+===== VAL Backtest (2022-10-10 to 2022-10-24 | 11 days | Capital INR 1,000,000) =====
+                                                                   total_return  sharpe  sortino  max_drawdown  cvar_95_daily  worst_day  annualized_turnover  avg_gross_exposure  trade_entries  gate_overrides
+SP-05 policy + gate (balanced, long/short)                                0.018   4.770    9.383        -0.010         -0.005     -0.005               11.876               0.483            6.0             2.0
+SP-05 policy + gate (conservative, long/short)                            0.001  -2.202   -3.027        -0.003         -0.002     -0.002                4.554               0.104            2.0             0.0
+SP-05 policy + gate (aggressive, long/short)                              0.029   8.036   15.613        -0.007         -0.006     -0.006               12.733               0.550            6.0             2.0
+SP-05 policy + gate (balanced, long-only)                                 0.018   4.770    9.383        -0.010         -0.005     -0.005               11.876               0.483            6.0             2.0
+SP-05 policy ALONE, no gate (balanced, long/short)                        0.015   3.567    6.268        -0.012         -0.007     -0.007               16.551               0.497            7.0             0.0
+Rule-based risk controller + gate (long-only)                             0.037   8.271   15.744        -0.009         -0.009     -0.009               13.745               0.606            6.0            20.0
+Always-long + gate (gate-only baseline)                                   0.021   4.083    6.510        -0.017         -0.012     -0.012               15.906               0.535            6.0           140.0
+Conservative label rule + gate (balanced, long/short)                     0.014   4.129    7.721        -0.010         -0.005     -0.005               18.315               0.410            6.0             1.0
+NIFTY 50 buy & hold                                                       0.024   3.865    5.994        -0.019         -0.015     -0.015                0.000               1.000            NaN             NaN
+Equal-weight universe buy & hold                                          0.013   1.679    2.360        -0.023         -0.019     -0.019                0.000               1.000            NaN             NaN
+NIFTY 50 scaled to the main run's average exposure (rest in cash)         0.012   3.360    5.095        -0.009         -0.007     -0.007                0.000               0.483            NaN             NaN
+
+===== TEST Backtest (2024-10-18 to 2026-10-23 | 495 days | Capital INR 1,000,000) =====
+                                                                   total_return  sharpe  sortino  max_drawdown  cvar_95_daily  worst_day  annualized_turnover  avg_gross_exposure  trade_entries  gate_overrides
+SP-05 policy + gate (balanced, long/short)                               -0.055  -1.578   -2.085        -0.084         -0.008     -0.016                9.436               0.254          122.0            90.0
+SP-05 policy + gate (conservative, long/short)                           -0.082  -2.542   -3.082        -0.096         -0.007     -0.016                8.009               0.162          114.0            31.0
+SP-05 policy + gate (aggressive, long/short)                              0.002  -0.928   -1.329        -0.089         -0.009     -0.015               11.219               0.252          157.0           251.0
+SP-05 policy + gate (balanced, long-only)                                -0.055  -1.572   -2.076        -0.081         -0.008     -0.016                9.348               0.251          120.0            90.0
+SP-05 policy ALONE, no gate (balanced, long/short)                       -0.076  -1.788   -2.302        -0.099         -0.009     -0.016               12.307               0.253          164.0             0.0
+Rule-based risk controller + gate (long-only)                             0.049  -0.394   -0.529        -0.098         -0.013     -0.021                5.509               0.422           56.0          1446.0
+Always-long + gate (gate-only baseline)                                  -0.027  -0.827   -1.150        -0.112         -0.011     -0.020                4.883               0.508           50.0          7560.0
+Conservative label rule + gate (balanced, long/short)                    -0.051  -1.523   -1.988        -0.083         -0.009     -0.018                5.287               0.224           52.0            35.0
+NIFTY 50 buy & hold                                                      -0.087  -0.734   -1.013        -0.156         -0.018     -0.033                0.000               1.000            NaN             NaN
+Equal-weight universe buy & hold                                          0.068  -0.066   -0.093        -0.170         -0.025     -0.039                0.000               1.000            NaN             NaN
+NIFTY 50 scaled to the main run's average exposure (rest in cash)        -0.020  -2.062   -2.673        -0.041         -0.005     -0.008                0.000               0.254            NaN             NaN
+
+================================================================================
+GATE OVERRIDES & STRESS TESTING ANALYSIS
+================================================================================
+
+Gate Overrides by Reason (TEST split):
+                                                       position_stop_loss  max_holding_period  drawdown_halt  recent_loss_halt  volatility_prohibited  abnormal_gap_or_move  market_stress  gross_exposure_limit
+SP-05 policy + gate (balanced, long/short)                             11                   0              0                 0                     20                     0              0                    70
+SP-05 policy + gate (conservative, long/short)                          8                   0              0                 0                      1                     0              0                    30
+SP-05 policy + gate (aggressive, long/short)                            8                   0              0                 0                     26                     0              0                   225
+SP-05 policy + gate (balanced, long-only)                              11                   0              0                 0                     21                     0              0                    69
+Rule-based risk controller + gate (long-only)                          26                   3             91                 2                     72                     8              1                  1260
+Always-long + gate (gate-only baseline)                                36                  10           1054               212                   1190                    44            164                  5541
+Conservative label rule + gate (balanced, long/short)                   4                   0              0                 0                     14                     0              0                    21
+
+Blocked Entries Hindsight 10-bar Forward Return Analysis:
+[VAL] (Negative mean return = gate avoided a loss):
+                       blocked_entries  mean_dir_adj_fwd_return  share_that_would_have_lost
+reason                                                                                     
+volatility_prohibited                2                  -0.0055                         1.0
+[TEST] (Negative mean return = gate avoided a loss):
+                       blocked_entries  mean_dir_adj_fwd_return  share_that_would_have_lost
+reason                                                                                     
+gross_exposure_limit                70                  -0.0079                      0.5571
+volatility_prohibited               20                   0.0193                      0.2000
+
+[TEST] Closed Trades by Exit Authority:
+                          trades  mean_return  win_rate  median_bars
+exit_by                                                             
+gate: position_stop_loss      11      -0.0615    0.0000          3.0
+policy                       109      -0.0002    0.3761          1.0
+
+Compounded Return by Stress Period (val+test):
+period                                              any stress  high_vol  normal  severe_drawdown
+strategy                                                                                         
+SP-05 policy + gate (balanced, long/short)               0.003    -0.013  -0.042            0.016
+SP-05 policy ALONE, no gate (balanced, long/short)       0.004    -0.012  -0.066            0.017
+Rule-based risk controller + gate (long-only)            0.096     0.056  -0.006            0.036
+Always-long + gate (gate-only baseline)                  0.054     0.046  -0.058            0.015
+NIFTY 50 buy & hold                                      0.184     0.126  -0.210            0.097
+Equal-weight universe buy & hold                         0.286     0.197  -0.159            0.139
+
+Downside Capture on Sharp Market Down Days:
+                   days  NIFTY mean return  SP-05 policy + gate (balanced, long/short)  SP-05 policy ALONE, no gate (balanced, long/short)  Rule-based risk controller + gate (long-only)  Always-long + gate (gate-only baseline)
+NIFTY 50 <= -1.5%  19.0            -0.0195                                     -0.0041                                             -0.0039                                        -0.0054                                  -0.0092
+NIFTY 50 <= -2.0%   7.0            -0.0250                                     -0.0018                                             -0.0018                                        -0.0022                                  -0.0105
+
+Gap-Loss Budget on Open Gross Exposure:
+                                                    mean_exposure  p95_exposure  max_exposure  loss_at_max_exposure_gap_5%  loss_at_max_exposure_gap_10%  loss_at_max_exposure_gap_20%
+SP-05 policy + gate (balanced, long/short)                  0.259         0.582         0.600                       -0.030                        -0.060                        -0.120
+SP-05 policy ALONE, no gate (balanced, long/short)          0.258         0.677         0.914                       -0.046                        -0.091                        -0.183
+Rule-based risk controller + gate (long-only)               0.426         0.559         0.615                       -0.031                        -0.061                        -0.123
+Always-long + gate (gate-only baseline)                     0.509         0.578         0.604                       -0.030                        -0.060                        -0.121
+
+Worst Drawdown Episodes (Main Run):
+ peak_date trough_date     depth  days_peak_to_trough  recovered_on  days_underwater
+2024-12-17  2026-08-07 -0.083550                  404 NOT RECOVERED              454
+2024-11-07  2024-11-13 -0.017555                    4    2024-12-05               18
+2024-10-18  2024-11-04 -0.005883                   11    2024-11-07               14
+
+Worst 5 Trading Days (Main Run):
+      date  main_return  bench_return  gross_exposure  portfolio_drawdown  gate_overrides_that_day
+2024-12-20      -0.0163       -0.0152          0.3692              0.0263                        0
+2026-09-15      -0.0121       -0.0119          0.3145              0.0296                        0
+2024-11-13      -0.0117       -0.0136          0.2515              0.0176                        0
+2025-04-07      -0.0104       -0.0324          0.1837              0.0550                        0
+2026-06-29      -0.0103       -0.0046          0.2434              0.0464                        0
+
+================================================================================
+GENERATING EVALUATION PLOTS
+================================================================================
+All 9 evaluation figures generated and saved to outputs/figures!
+
+================================================================================
+SAVING STANDARDIZED ARTIFACTS
+================================================================================
+Saved evaluation_metrics.json
+
+Verifying reload check and round-trip assertions...
+Reload check and round-trip assertions PASSED!
+
+[Artifact Verification]
+  [OK] conservative_policy.pt         (   214.6 KiB)
+  [OK] best_checkpoint.pt             (   206.3 KiB)
+  [OK] final_checkpoint.pt            (   206.4 KiB)
+  [OK] conservative_config.json       (     2.0 KiB)
+  [OK] feature_schema.json            (     8.1 KiB)
+  [OK] preprocessing.pkl              (     1.3 KiB)
+  [OK] evaluation_metrics.json        (    98.5 KiB)
+  [OK] training_history.csv           (     2.2 KiB)
+  [OK] equity_curve.csv               (   111.0 KiB)
+  [OK] sp05_features.py               (    21.7 KiB)
+  [OK] sp05_risk.py                   (     8.8 KiB)
+  [OK] sp05_model.py                  (    12.8 KiB)
+
+================================================================================
+TRAINING AND EVALUATION PIPELINE COMPLETED SUCCESSFULLY!
+================================================================================

@@ -1,0 +1,12 @@
+strategy,total_return,CAGR,max_drawdown,Sharpe,Sortino,annualized_volatility,avg_gross_exposure,annualized_turnover,entries,closed_trades,gate_overrides
+"SP-05 + gate, balanced L/S",-5.52%,-2.85%,-8.35%,-1.58,-2.08,5.54%,25.39%,9.44x,122,120,90
+"SP-05 + gate, conservative L/S",-8.21%,-4.27%,-9.65%,-2.54,-3.08,4.04%,16.21%,8.01x,114,114,31
+"SP-05 + gate, aggressive L/S",0.15%,0.08%,-8.87%,-0.93,-1.33,6.18%,25.16%,11.22x,157,152,251
+"SP-05 + gate, balanced long-only",-5.54%,-2.86%,-8.12%,-1.57,-2.08,5.56%,25.10%,9.35x,120,119,90
+"SP-05 without gate, balanced L/S",-7.56%,-3.92%,-9.86%,-1.79,-2.30,5.51%,25.31%,12.31x,164,163,0
+"Rule controller + gate, long-only",4.95%,2.49%,-9.85%,-0.39,-0.53,8.15%,42.16%,5.51x,56,52,"1,446"
+Always long + gate,-2.70%,-1.38%,-11.22%,-0.83,-1.15,8.50%,50.80%,4.88x,50,46,"7,560"
+Conservative label rule + gate,-5.08%,-2.62%,-8.29%,-1.52,-1.99,5.58%,22.41%,5.29x,52,52,35
+NIFTY 50 buy & hold,-8.69%,-4.52%,-15.56%,-0.73,-1.01,13.28%,100.00%,0.00x,—,—,—
+Equal-weight common bluechip basket*,6.77%,3.39%,-16.96%,-0.07,-0.09,17.43%,100.00%,0.00x,—,—,—
+Exposure-matched NIFTY 50,-1.96%,-1.00%,-4.05%,-2.06,-2.67,3.37%,25.39%,0.00x,—,—,—

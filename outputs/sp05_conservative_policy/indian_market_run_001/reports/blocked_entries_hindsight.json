@@ -1,0 +1,21 @@
+{
+  "val": {
+    "volatility_prohibited": {
+      "blocked_entries": 2,
+      "mean_dir_adj_fwd_return": -0.005481741391122341,
+      "share_that_would_have_lost": 1.0
+    }
+  },
+  "test": {
+    "gross_exposure_limit": {
+      "blocked_entries": 70,
+      "mean_dir_adj_fwd_return": -0.007871440739836543,
+      "share_that_would_have_lost": 0.5571428571428572
+    },
+    "volatility_prohibited": {
+      "blocked_entries": 20,
+      "mean_dir_adj_fwd_return": 0.01925994227640331,
+      "share_that_would_have_lost": 0.2
+    }
+  }
+}

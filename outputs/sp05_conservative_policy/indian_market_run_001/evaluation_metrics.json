@@ -1,0 +1,3088 @@
+{
+  "model": "SP-05 Conservative Risk-Aware Policy",
+  "market": "Indian Equity Market (NSE/BSE)",
+  "benchmark": "NIFTY 50",
+  "label_source": "strategy_derived_proxy (conservative objective, decision-time)",
+  "label_warning": "Labels are strategy-derived PROXY labels from an explicit conservative objective: NOT human demonstrations.",
+  "authority": "This policy only PROPOSES actions. sp05_risk.RiskController has final authority over execution.",
+  "confidence_limitations": [
+    "Calibrated against proxy labels on the validation period, not against loss avoidance.",
+    "Not calibrated for rare high-stress states.",
+    "Not comparable across policies.",
+    "The hard risk gate does not depend on confidence for safety decisions."
+  ],
+  "objective": {
+    "w_return": 1.0,
+    "w_drawdown": 1.0,
+    "w_turnover": 0.3,
+    "entry_threshold": 0.3,
+    "exit_threshold": -0.25,
+    "short_penalty": 0.2
+  },
+  "soft_limits": {
+    "portfolio_drawdown": 0.05,
+    "gross_exposure": 0.5,
+    "recent_loss": 0.04,
+    "vol_exit_percentile": 0.9,
+    "abnormal_ret_z": 3.0,
+    "gap_atr": 2.5,
+    "market_stress_dd": 0.1
+  },
+  "hard_risk_limits": {
+    "allow_short": true,
+    "max_position_fraction": 0.1,
+    "max_gross_exposure": 0.6,
+    "position_stop_loss": 0.05,
+    "max_holding_bars": 120,
+    "halt_drawdown": 0.08,
+    "flatten_drawdown": 0.15,
+    "recent_loss_halt": 0.06,
+    "max_vol_percentile": 0.9,
+    "max_abs_gap_atr": 3.0,
+    "max_abnormal_ret_z": 4.0,
+    "market_stress_dd": 0.12,
+    "min_entry_confidence": 0.5
+  },
+  "n_samples": {
+    "train": 360000,
+    "val": 1146369,
+    "test": 4936272
+  },
+  "label_distribution": {
+    "train": {
+      "HOLD": 4433706,
+      "BUY": 101192,
+      "SELL": 1679,
+      "EXIT": 5830184
+    },
+    "val": {
+      "HOLD": 480144,
+      "BUY": 7416,
+      "SELL": 90,
+      "EXIT": 658719
+    },
+    "test": {
+      "HOLD": 2126502,
+      "BUY": 37607,
+      "SELL": 1461,
+      "EXIT": 2770702
+    }
+  },
+  "class_weights": {
+    "HOLD": 0.8368983268737793,
+    "BUY": 20.0,
+    "SELL": 20.0,
+    "EXIT": 0.6364398002624512
+  },
+  "classification": {
+    "validation": {
+      "n_samples": 1146369,
+      "accuracy": 0.9831851698711322,
+      "balanced_accuracy": 0.8855540355286124,
+      "macro_f1": 0.8109874507149175,
+      "weighted_f1": 0.9834905866881796,
+      "majority_class_baseline_accuracy": 0.5746134098183046,
+      "nll": 0.041928306221961975,
+      "ece": 0.0009782847830348235,
+      "reliability_bins": [
+        {
+          "bin_lo": 0.4,
+          "bin_hi": 0.5,
+          "n": 3,
+          "confidence": 0.49955955147743225,
+          "accuracy": 0.3333333333333333
+        },
+        {
+          "bin_lo": 0.5,
+          "bin_hi": 0.6000000000000001,
+          "n": 11576,
+          "confidence": 0.550412654876709,
+          "accuracy": 0.5515722183828611
+        },
+        {
+          "bin_lo": 0.6000000000000001,
+          "bin_hi": 0.7000000000000001,
+          "n": 12565,
+          "confidence": 0.6512388586997986,
+          "accuracy": 0.6658177477118982
+        },
+        {
+          "bin_lo": 0.7000000000000001,
+          "bin_hi": 0.8,
+          "n": 15403,
+          "confidence": 0.7522028088569641,
+          "accuracy": 0.7680322015191846
+        },
+        {
+          "bin_lo": 0.8,
+          "bin_hi": 0.9,
+          "n": 23396,
+          "confidence": 0.8549731969833374,
+          "accuracy": 0.8759617028551889
+        },
+        {
+          "bin_lo": 0.9,
+          "bin_hi": 1.0,
+          "n": 1083426,
+          "confidence": 0.9970284104347229,
+          "accuracy": 0.9968534999160071
+        }
+      ],
+      "temperature": 1.2498507499694824,
+      "per_class": {
+        "HOLD": {
+          "precision": 0.9782872205732788,
+          "recall": 0.9816409243893499,
+          "f1": 0.9799612031594683,
+          "support": 480144
+        },
+        "BUY": {
+          "precision": 0.6685445142223864,
+          "recall": 0.9761326860841424,
+          "f1": 0.7935759701819777,
+          "support": 7416
+        },
+        "SELL": {
+          "precision": 0.40298507462686567,
+          "recall": 0.6,
+          "f1": 0.48214285714285715,
+          "support": 90
+        },
+        "EXIT": {
+          "precision": 0.9921268877645472,
+          "recall": 0.9844425316409576,
+          "f1": 0.9882697723753673,
+          "support": 658719
+        }
+      },
+      "confusion_matrix": [
+        [
+          471329,
+          3589,
+          80,
+          5146
+        ],
+        [
+          177,
+          7239,
+          0,
+          0
+        ],
+        [
+          36,
+          0,
+          54,
+          0
+        ],
+        [
+          10248,
+          0,
+          0,
+          648471
+        ]
+      ]
+    },
+    "test": {
+      "n_samples": 4936272,
+      "accuracy": 0.9814837999202637,
+      "balanced_accuracy": 0.9196724291501496,
+      "macro_f1": 0.8200173833371974,
+      "weighted_f1": 0.9819171314675694,
+      "majority_class_baseline_accuracy": 0.5612944343423539,
+      "nll": 0.045920684933662415,
+      "ece": 0.00088719103395982,
+      "reliability_bins": [
+        {
+          "bin_lo": 0.4,
+          "bin_hi": 0.5,
+          "n": 6,
+          "confidence": 0.49531564116477966,
+          "accuracy": 0.6666666666666666
+        },
+        {
+          "bin_lo": 0.5,
+          "bin_hi": 0.6000000000000001,
+          "n": 53046,
+          "confidence": 0.5503092408180237,
+          "accuracy": 0.5571013837047091
+        },
+        {
+          "bin_lo": 0.6000000000000001,
+          "bin_hi": 0.7000000000000001,
+          "n": 57940,
+          "confidence": 0.6512302756309509,
+          "accuracy": 0.6595961339316534
+        },
+        {
+          "bin_lo": 0.7000000000000001,
+          "bin_hi": 0.8,
+          "n": 71040,
+          "confidence": 0.7525671124458313,
+          "accuracy": 0.7641891891891892
+        },
+        {
+          "bin_lo": 0.8,
+          "bin_hi": 0.9,
+          "n": 108770,
+          "confidence": 0.8550463318824768,
+          "accuracy": 0.8648616346419049
+        },
+        {
+          "bin_lo": 0.9,
+          "bin_hi": 1.0,
+          "n": 4645470,
+          "confidence": 0.9967514872550964,
+          "accuracy": 0.9963984268545486
+        }
+      ],
+      "temperature": 1.2498507499694824,
+      "per_class": {
+        "HOLD": {
+          "precision": 0.9775158675223201,
+          "recall": 0.9795490434525808,
+          "f1": 0.978531399363982,
+          "support": 2126502
+        },
+        "BUY": {
+          "precision": 0.6579639102017618,
+          "recall": 0.9850825644161991,
+          "f1": 0.7889597597725506,
+          "support": 37607
+        },
+        "SELL": {
+          "precision": 0.409823484267076,
+          "recall": 0.731006160164271,
+          "f1": 0.5252028522252274,
+          "support": 1461
+        },
+        "EXIT": {
+          "precision": 0.9917372945383418,
+          "recall": 0.9830519485675472,
+          "f1": 0.9873755219870298,
+          "support": 2770702
+        }
+      },
+      "confusion_matrix": [
+        [
+          2083013,
+          19258,
+          1538,
+          22693
+        ],
+        [
+          561,
+          37046,
+          0,
+          0
+        ],
+        [
+          393,
+          0,
+          1068,
+          0
+        ],
+        [
+          46958,
+          0,
+          0,
+          2723744
+        ]
+      ]
+    },
+    "test_uncalibrated": {
+      "n_samples": 4936272,
+      "accuracy": 0.9814837999202637,
+      "balanced_accuracy": 0.9196724291501496,
+      "macro_f1": 0.8200173833371974,
+      "weighted_f1": 0.9819171314675694,
+      "majority_class_baseline_accuracy": 0.5612944343423539,
+      "nll": 0.04730308800935745,
+      "ece": 0.003630987692108433,
+      "reliability_bins": [
+        {
+          "bin_lo": 0.4,
+          "bin_hi": 0.5,
+          "n": 2,
+          "confidence": 0.496454119682312,
+          "accuracy": 0.5
+        },
+        {
+          "bin_lo": 0.5,
+          "bin_hi": 0.6000000000000001,
+          "n": 42496,
+          "confidence": 0.5503830313682556,
+          "accuracy": 0.5472985692771084
+        },
+        {
+          "bin_lo": 0.6000000000000001,
+          "bin_hi": 0.7000000000000001,
+          "n": 46253,
+          "confidence": 0.6513202786445618,
+          "accuracy": 0.6314401228028452
+        },
+        {
+          "bin_lo": 0.7000000000000001,
+          "bin_hi": 0.8,
+          "n": 56389,
+          "confidence": 0.7522369623184204,
+          "accuracy": 0.7197148380003192
+        },
+        {
+          "bin_lo": 0.8,
+          "bin_hi": 0.9,
+          "n": 86188,
+          "confidence": 0.854783833026886,
+          "accuracy": 0.8167958416484894
+        },
+        {
+          "bin_lo": 0.9,
+          "bin_hi": 1.0,
+          "n": 4704944,
+          "confidence": 0.99750155210495,
+          "accuracy": 0.995001003200038
+        }
+      ],
+      "temperature": 1.0,
+      "per_class": {
+        "HOLD": {
+          "precision": 0.9775158675223201,
+          "recall": 0.9795490434525808,
+          "f1": 0.978531399363982,
+          "support": 2126502
+        },
+        "BUY": {
+          "precision": 0.6579639102017618,
+          "recall": 0.9850825644161991,
+          "f1": 0.7889597597725506,
+          "support": 37607
+        },
+        "SELL": {
+          "precision": 0.409823484267076,
+          "recall": 0.731006160164271,
+          "f1": 0.5252028522252274,
+          "support": 1461
+        },
+        "EXIT": {
+          "precision": 0.9917372945383418,
+          "recall": 0.9830519485675472,
+          "f1": 0.9873755219870298,
+          "support": 2770702
+        }
+      },
+      "confusion_matrix": [
+        [
+          2083013,
+          19258,
+          1538,
+          22693
+        ],
+        [
+          561,
+          37046,
+          0,
+          0
+        ],
+        [
+          393,
+          0,
+          1068,
+          0
+        ],
+        [
+          46958,
+          0,
+          0,
+          2723744
+        ]
+      ]
+    },
+    "unseen_holdout_cohort": {
+      "n_samples": 271134,
+      "accuracy": 0.8641704839673372,
+      "balanced_accuracy": 0.46021906052714723,
+      "macro_f1": 0.45717221937270736,
+      "weighted_f1": 0.8647214966659776,
+      "majority_class_baseline_accuracy": 0.5612427803226449,
+      "nll": 1.212164044380188,
+      "ece": 0.12008858063101001,
+      "reliability_bins": [
+        {
+          "bin_lo": 0.4,
+          "bin_hi": 0.5,
+          "n": 1,
+          "confidence": 0.4984147846698761,
+          "accuracy": 0.0
+        },
+        {
+          "bin_lo": 0.5,
+          "bin_hi": 0.6000000000000001,
+          "n": 2483,
+          "confidence": 0.5511112213134766,
+          "accuracy": 0.5082561417639951
+        },
+        {
+          "bin_lo": 0.6000000000000001,
+          "bin_hi": 0.7000000000000001,
+          "n": 2618,
+          "confidence": 0.6512616872787476,
+          "accuracy": 0.5152788388082505
+        },
+        {
+          "bin_lo": 0.7000000000000001,
+          "bin_hi": 0.8,
+          "n": 3239,
+          "confidence": 0.7524992227554321,
+          "accuracy": 0.545230009262118
+        },
+        {
+          "bin_lo": 0.8,
+          "bin_hi": 0.9,
+          "n": 5118,
+          "confidence": 0.8546587824821472,
+          "accuracy": 0.5627198124267292
+        },
+        {
+          "bin_lo": 0.9,
+          "bin_hi": 1.0,
+          "n": 257675,
+          "confidence": 0.9973055124282837,
+          "accuracy": 0.8811448530125158
+        }
+      ],
+      "temperature": 1.2498507499694824,
+      "per_class": {
+        "HOLD": {
+          "precision": 0.8727949476198028,
+          "recall": 0.801523186183382,
+          "f1": 0.8356421317756759,
+          "support": 116729
+        },
+        "BUY": {
+          "precision": 0.07993680884676145,
+          "recall": 0.11610830656264341,
+          "f1": 0.09468562874251497,
+          "support": 2179
+        },
+        "SELL": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 54
+        },
+        "EXIT": {
+          "precision": 0.8747836266048991,
+          "recall": 0.9232447493625634,
+          "f1": 0.8983611169726384,
+          "support": 152172
+        }
+      },
+      "confusion_matrix": [
+        [
+          93561,
+          2904,
+          154,
+          20110
+        ],
+        [
+          1910,
+          253,
+          16,
+          0
+        ],
+        [
+          46,
+          8,
+          0,
+          0
+        ],
+        [
+          11680,
+          0,
+          0,
+          140492
+        ]
+      ]
+    },
+    "top20_bluechips_cohort": {
+      "n_samples": 56229,
+      "accuracy": 0.9761333119920326,
+      "balanced_accuracy": 0.8469696112696533,
+      "macro_f1": 0.7693692835586701,
+      "weighted_f1": 0.9767846316316088,
+      "majority_class_baseline_accuracy": 0.5381386828860553,
+      "nll": 0.05762851610779762,
+      "ece": 0.0018022989153567166,
+      "reliability_bins": [
+        {
+          "bin_lo": 0.5,
+          "bin_hi": 0.6000000000000001,
+          "n": 748,
+          "confidence": 0.5513226389884949,
+          "accuracy": 0.5467914438502673
+        },
+        {
+          "bin_lo": 0.6000000000000001,
+          "bin_hi": 0.7000000000000001,
+          "n": 782,
+          "confidence": 0.6513298153877258,
+          "accuracy": 0.6636828644501279
+        },
+        {
+          "bin_lo": 0.7000000000000001,
+          "bin_hi": 0.8,
+          "n": 966,
+          "confidence": 0.7528510689735413,
+          "accuracy": 0.7329192546583851
+        },
+        {
+          "bin_lo": 0.8,
+          "bin_hi": 0.9,
+          "n": 1470,
+          "confidence": 0.8548628687858582,
+          "accuracy": 0.8421768707482993
+        },
+        {
+          "bin_lo": 0.9,
+          "bin_hi": 1.0,
+          "n": 52263,
+          "confidence": 0.9961806535720825,
+          "accuracy": 0.9952165011576067
+        }
+      ],
+      "temperature": 1.2498507499694824,
+      "per_class": {
+        "HOLD": {
+          "precision": 0.9740690426722072,
+          "recall": 0.9723596043395022,
+          "f1": 0.9732135728542914,
+          "support": 25072
+        },
+        "BUY": {
+          "precision": 0.6869158878504673,
+          "recall": 0.9921259842519685,
+          "f1": 0.8117809479981593,
+          "support": 889
+        },
+        "SELL": {
+          "precision": 0.23529411764705882,
+          "recall": 0.4444444444444444,
+          "f1": 0.3076923076923077,
+          "support": 9
+        },
+        "EXIT": {
+          "precision": 0.9907023411371237,
+          "recall": 0.978948412042698,
+          "f1": 0.9847903056899217,
+          "support": 30259
+        }
+      },
+      "confusion_matrix": [
+        [
+          24379,
+          402,
+          13,
+          278
+        ],
+        [
+          7,
+          882,
+          0,
+          0
+        ],
+        [
+          5,
+          0,
+          4,
+          0
+        ],
+        [
+          637,
+          0,
+          0,
+          29622
+        ]
+      ]
+    }
+  },
+  "classification_by_risk_condition": {
+    "val": {
+      "flat: calm, portfolio within soft limits": {
+        "n": 76191,
+        "accuracy": 0.9734876822721844,
+        "macro_f1": 0.8016572666281059,
+        "true_HOLD": 68685,
+        "true_BUY": 7416,
+        "true_SELL": 90,
+        "true_EXIT": 0,
+        "pred_HOLD": 67091,
+        "pred_BUY": 8989,
+        "pred_SELL": 111,
+        "pred_EXIT": 0
+      },
+      "flat: entry PROHIBITED (volatility / abnormal move / market stress)": {
+        "n": 135686,
+        "accuracy": 0.9933080789469805,
+        "macro_f1": 0.33221426881211547,
+        "true_HOLD": 135686,
+        "true_BUY": 0,
+        "true_SELL": 0,
+        "true_EXIT": 0,
+        "pred_HOLD": 134778,
+        "pred_BUY": 892,
+        "pred_SELL": 16,
+        "pred_EXIT": 0
+      },
+      "flat: portfolio soft limit breached (drawdown / exposure / recent loss)": {
+        "n": 170246,
+        "accuracy": 0.9943963441138117,
+        "macro_f1": 0.33239676658675416,
+        "true_HOLD": 170246,
+        "true_BUY": 0,
+        "true_SELL": 0,
+        "true_EXIT": 0,
+        "pred_HOLD": 169292,
+        "pred_BUY": 947,
+        "pred_SELL": 7,
+        "pred_EXIT": 0
+      },
+      "holding: risk elevated (vol spike / de-risk trigger)": {
+        "n": 268709,
+        "accuracy": 0.9951806601193113,
+        "macro_f1": 0.4987922547624333,
+        "true_HOLD": 0,
+        "true_BUY": 0,
+        "true_SELL": 0,
+        "true_EXIT": 268709,
+        "pred_HOLD": 1295,
+        "pred_BUY": 0,
+        "pred_SELL": 0,
+        "pred_EXIT": 267414
+      },
+      "holding: calm": {
+        "n": 495537,
+        "accuracy": 0.9715480377852713,
+        "macro_f1": 0.9581085017580558,
+        "true_HOLD": 105527,
+        "true_BUY": 0,
+        "true_SELL": 0,
+        "true_EXIT": 390010,
+        "pred_HOLD": 109334,
+        "pred_BUY": 0,
+        "pred_SELL": 0,
+        "pred_EXIT": 386203
+      }
+    },
+    "test": {
+      "flat: calm, portfolio within soft limits": {
+        "n": 354399,
+        "accuracy": 0.9644891774525323,
+        "macro_f1": 0.8057430988549895,
+        "true_HOLD": 315331,
+        "true_BUY": 37607,
+        "true_SELL": 1461,
+        "true_EXIT": 0,
+        "pred_HOLD": 304654,
+        "pred_BUY": 47434,
+        "pred_SELL": 2311,
+        "pred_EXIT": 0
+      },
+      "flat: entry PROHIBITED (volatility / abnormal move / market stress)": {
+        "n": 505791,
+        "accuracy": 0.99247712988171,
+        "macro_f1": 0.332074787709318,
+        "true_HOLD": 505791,
+        "true_BUY": 0,
+        "true_SELL": 0,
+        "true_EXIT": 0,
+        "pred_HOLD": 501986,
+        "pred_BUY": 3708,
+        "pred_SELL": 97,
+        "pred_EXIT": 0
+      },
+      "flat: portfolio soft limit breached (drawdown / exposure / recent loss)": {
+        "n": 785234,
+        "accuracy": 0.9931740092762158,
+        "macro_f1": 0.33219177206940353,
+        "true_HOLD": 785234,
+        "true_BUY": 0,
+        "true_SELL": 0,
+        "true_EXIT": 0,
+        "pred_HOLD": 779874,
+        "pred_BUY": 5162,
+        "pred_SELL": 198,
+        "pred_EXIT": 0
+      },
+      "holding: risk elevated (vol spike / de-risk trigger)": {
+        "n": 1186475,
+        "accuracy": 0.9934537179460166,
+        "macro_f1": 0.4983580551695154,
+        "true_HOLD": 0,
+        "true_BUY": 0,
+        "true_SELL": 0,
+        "true_EXIT": 1186475,
+        "pred_HOLD": 7767,
+        "pred_BUY": 0,
+        "pred_SELL": 0,
+        "pred_EXIT": 1178708
+      },
+      "holding: calm": {
+        "n": 2104373,
+        "accuracy": 0.9705926658439354,
+        "macro_f1": 0.9609040062060747,
+        "true_HOLD": 520146,
+        "true_BUY": 0,
+        "true_SELL": 0,
+        "true_EXIT": 1584227,
+        "pred_HOLD": 536644,
+        "pred_BUY": 0,
+        "pred_SELL": 0,
+        "pred_EXIT": 1567729
+      }
+    }
+  },
+  "entry_proposals_in_forbidden_states": {
+    "val": {
+      "flat_forbidden_states": 305932,
+      "network_proposes_entry_in_forbidden_states_pct": 0.60863198357805,
+      "labels_with_entry_in_forbidden_states_pct": 0.0
+    },
+    "test": {
+      "flat_forbidden_states": 1291025,
+      "network_proposes_entry_in_forbidden_states_pct": 0.7099010476172033,
+      "labels_with_entry_in_forbidden_states_pct": 0.0
+    }
+  },
+  "generalization_experiments": {
+    "experiment_a_main_test": {
+      "n_samples": 4936272,
+      "accuracy": 0.9814837999202637,
+      "balanced_accuracy": 0.9196724291501496,
+      "macro_f1": 0.8200173833371974,
+      "weighted_f1": 0.9819171314675694,
+      "majority_class_baseline_accuracy": 0.5612944343423539,
+      "nll": 0.045920684933662415,
+      "ece": 0.00088719103395982,
+      "reliability_bins": [
+        {
+          "bin_lo": 0.4,
+          "bin_hi": 0.5,
+          "n": 6,
+          "confidence": 0.49531564116477966,
+          "accuracy": 0.6666666666666666
+        },
+        {
+          "bin_lo": 0.5,
+          "bin_hi": 0.6000000000000001,
+          "n": 53046,
+          "confidence": 0.5503092408180237,
+          "accuracy": 0.5571013837047091
+        },
+        {
+          "bin_lo": 0.6000000000000001,
+          "bin_hi": 0.7000000000000001,
+          "n": 57940,
+          "confidence": 0.6512302756309509,
+          "accuracy": 0.6595961339316534
+        },
+        {
+          "bin_lo": 0.7000000000000001,
+          "bin_hi": 0.8,
+          "n": 71040,
+          "confidence": 0.7525671124458313,
+          "accuracy": 0.7641891891891892
+        },
+        {
+          "bin_lo": 0.8,
+          "bin_hi": 0.9,
+          "n": 108770,
+          "confidence": 0.8550463318824768,
+          "accuracy": 0.8648616346419049
+        },
+        {
+          "bin_lo": 0.9,
+          "bin_hi": 1.0,
+          "n": 4645470,
+          "confidence": 0.9967514872550964,
+          "accuracy": 0.9963984268545486
+        }
+      ],
+      "temperature": 1.2498507499694824,
+      "per_class": {
+        "HOLD": {
+          "precision": 0.9775158675223201,
+          "recall": 0.9795490434525808,
+          "f1": 0.978531399363982,
+          "support": 2126502
+        },
+        "BUY": {
+          "precision": 0.6579639102017618,
+          "recall": 0.9850825644161991,
+          "f1": 0.7889597597725506,
+          "support": 37607
+        },
+        "SELL": {
+          "precision": 0.409823484267076,
+          "recall": 0.731006160164271,
+          "f1": 0.5252028522252274,
+          "support": 1461
+        },
+        "EXIT": {
+          "precision": 0.9917372945383418,
+          "recall": 0.9830519485675472,
+          "f1": 0.9873755219870298,
+          "support": 2770702
+        }
+      },
+      "confusion_matrix": [
+        [
+          2083013,
+          19258,
+          1538,
+          22693
+        ],
+        [
+          561,
+          37046,
+          0,
+          0
+        ],
+        [
+          393,
+          0,
+          1068,
+          0
+        ],
+        [
+          46958,
+          0,
+          0,
+          2723744
+        ]
+      ]
+    },
+    "experiment_b_unseen_holdout": {
+      "n_samples": 271134,
+      "accuracy": 0.8641704839673372,
+      "balanced_accuracy": 0.46021906052714723,
+      "macro_f1": 0.45717221937270736,
+      "weighted_f1": 0.8647214966659776,
+      "majority_class_baseline_accuracy": 0.5612427803226449,
+      "nll": 1.212164044380188,
+      "ece": 0.12008858063101001,
+      "reliability_bins": [
+        {
+          "bin_lo": 0.4,
+          "bin_hi": 0.5,
+          "n": 1,
+          "confidence": 0.4984147846698761,
+          "accuracy": 0.0
+        },
+        {
+          "bin_lo": 0.5,
+          "bin_hi": 0.6000000000000001,
+          "n": 2483,
+          "confidence": 0.5511112213134766,
+          "accuracy": 0.5082561417639951
+        },
+        {
+          "bin_lo": 0.6000000000000001,
+          "bin_hi": 0.7000000000000001,
+          "n": 2618,
+          "confidence": 0.6512616872787476,
+          "accuracy": 0.5152788388082505
+        },
+        {
+          "bin_lo": 0.7000000000000001,
+          "bin_hi": 0.8,
+          "n": 3239,
+          "confidence": 0.7524992227554321,
+          "accuracy": 0.545230009262118
+        },
+        {
+          "bin_lo": 0.8,
+          "bin_hi": 0.9,
+          "n": 5118,
+          "confidence": 0.8546587824821472,
+          "accuracy": 0.5627198124267292
+        },
+        {
+          "bin_lo": 0.9,
+          "bin_hi": 1.0,
+          "n": 257675,
+          "confidence": 0.9973055124282837,
+          "accuracy": 0.8811448530125158
+        }
+      ],
+      "temperature": 1.2498507499694824,
+      "per_class": {
+        "HOLD": {
+          "precision": 0.8727949476198028,
+          "recall": 0.801523186183382,
+          "f1": 0.8356421317756759,
+          "support": 116729
+        },
+        "BUY": {
+          "precision": 0.07993680884676145,
+          "recall": 0.11610830656264341,
+          "f1": 0.09468562874251497,
+          "support": 2179
+        },
+        "SELL": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 54
+        },
+        "EXIT": {
+          "precision": 0.8747836266048991,
+          "recall": 0.9232447493625634,
+          "f1": 0.8983611169726384,
+          "support": 152172
+        }
+      },
+      "confusion_matrix": [
+        [
+          93561,
+          2904,
+          154,
+          20110
+        ],
+        [
+          1910,
+          253,
+          16,
+          0
+        ],
+        [
+          46,
+          8,
+          0,
+          0
+        ],
+        [
+          11680,
+          0,
+          0,
+          140492
+        ]
+      ]
+    },
+    "experiment_c_top20_bluechips": {
+      "n_samples": 56229,
+      "accuracy": 0.9761333119920326,
+      "balanced_accuracy": 0.8469696112696533,
+      "macro_f1": 0.7693692835586701,
+      "weighted_f1": 0.9767846316316088,
+      "majority_class_baseline_accuracy": 0.5381386828860553,
+      "nll": 0.05762851610779762,
+      "ece": 0.0018022989153567166,
+      "reliability_bins": [
+        {
+          "bin_lo": 0.5,
+          "bin_hi": 0.6000000000000001,
+          "n": 748,
+          "confidence": 0.5513226389884949,
+          "accuracy": 0.5467914438502673
+        },
+        {
+          "bin_lo": 0.6000000000000001,
+          "bin_hi": 0.7000000000000001,
+          "n": 782,
+          "confidence": 0.6513298153877258,
+          "accuracy": 0.6636828644501279
+        },
+        {
+          "bin_lo": 0.7000000000000001,
+          "bin_hi": 0.8,
+          "n": 966,
+          "confidence": 0.7528510689735413,
+          "accuracy": 0.7329192546583851
+        },
+        {
+          "bin_lo": 0.8,
+          "bin_hi": 0.9,
+          "n": 1470,
+          "confidence": 0.8548628687858582,
+          "accuracy": 0.8421768707482993
+        },
+        {
+          "bin_lo": 0.9,
+          "bin_hi": 1.0,
+          "n": 52263,
+          "confidence": 0.9961806535720825,
+          "accuracy": 0.9952165011576067
+        }
+      ],
+      "temperature": 1.2498507499694824,
+      "per_class": {
+        "HOLD": {
+          "precision": 0.9740690426722072,
+          "recall": 0.9723596043395022,
+          "f1": 0.9732135728542914,
+          "support": 25072
+        },
+        "BUY": {
+          "precision": 0.6869158878504673,
+          "recall": 0.9921259842519685,
+          "f1": 0.8117809479981593,
+          "support": 889
+        },
+        "SELL": {
+          "precision": 0.23529411764705882,
+          "recall": 0.4444444444444444,
+          "f1": 0.3076923076923077,
+          "support": 9
+        },
+        "EXIT": {
+          "precision": 0.9907023411371237,
+          "recall": 0.978948412042698,
+          "f1": 0.9847903056899217,
+          "support": 30259
+        }
+      },
+      "confusion_matrix": [
+        [
+          24379,
+          402,
+          13,
+          278
+        ],
+        [
+          7,
+          882,
+          0,
+          0
+        ],
+        [
+          5,
+          0,
+          4,
+          0
+        ],
+        [
+          637,
+          0,
+          0,
+          29622
+        ]
+      ]
+    },
+    "experiment_d_profile_sensitivity": {
+      "balanced": {
+        "profile": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "accuracy": 0.9676888888888889,
+        "macro_f1": 0.8021736474301835,
+        "buy_prop_pct": 2.7066666666666666,
+        "sell_prop_pct": 0.11555555555555555,
+        "hold_prop_pct": 47.791111111111114,
+        "exit_prop_pct": 49.38666666666667
+      },
+      "conservative": {
+        "profile": [
+          0.2,
+          0.8,
+          0.2
+        ],
+        "accuracy": 0.9744444444444444,
+        "macro_f1": 0.6794884334247188,
+        "buy_prop_pct": 1.5022222222222221,
+        "sell_prop_pct": 0.0,
+        "hold_prop_pct": 44.44888888888889,
+        "exit_prop_pct": 54.04888888888889
+      },
+      "aggressive": {
+        "profile": [
+          0.8,
+          0.3,
+          0.8
+        ],
+        "accuracy": 0.9513777777777778,
+        "macro_f1": 0.8427428639793137,
+        "buy_prop_pct": 5.3933333333333335,
+        "sell_prop_pct": 0.9333333333333335,
+        "hold_prop_pct": 50.126666666666665,
+        "exit_prop_pct": 43.54666666666667
+      }
+    },
+    "experiment_e_market_regimes": {
+      "Bull Market": {
+        "samples": 2825094,
+        "accuracy": 0.9797397891893155,
+        "macro_f1": 0.8191241938876682,
+        "buy_pct": 1.5397717739657513,
+        "hold_pct": 43.914928140444175,
+        "exit_pct": 54.49616897703227
+      },
+      "Bear Market": {
+        "samples": 1072095,
+        "accuracy": 0.9851738885080147,
+        "macro_f1": 0.8044920818700948,
+        "buy_pct": 0.3828951725360159,
+        "hold_pct": 41.281696118347725,
+        "exit_pct": 58.290356731446366
+      },
+      "Sideways/Chop": {
+        "samples": 1039083,
+        "accuracy": 0.9824181513892538,
+        "macro_f1": 0.8297936268775753,
+        "buy_pct": 0.837180475476935,
+        "hold_pct": 43.08683714390477,
+        "exit_pct": 56.00524693407552
+      },
+      "High Volatility (>=85%ile)": {
+        "samples": 629517,
+        "accuracy": 0.984376911187466,
+        "macro_f1": 0.8016780377654805,
+        "buy_pct": 0.7790099393662125,
+        "hold_pct": 40.672293202566415,
+        "exit_pct": 58.53217625576435
+      },
+      "Low Volatility (<30%ile)": {
+        "samples": 1911996,
+        "accuracy": 0.9786704574695763,
+        "macro_f1": 0.8220876736081173,
+        "buy_pct": 1.5397521752137555,
+        "hold_pct": 44.94936181874857,
+        "exit_pct": 53.42296741206572
+      },
+      "Severe Benchmark Drawdown (<= -10%)": {
+        "samples": 675849,
+        "accuracy": 0.9856595186202836,
+        "macro_f1": 0.7979183772041429,
+        "buy_pct": 0.3031742297465854,
+        "hold_pct": 40.833825307132216,
+        "exit_pct": 58.8286732687331
+      }
+    }
+  },
+  "backtest": {
+    "val": {
+      "SP-05 policy + gate (balanced, long/short)": {
+        "n_days": 11.0,
+        "total_return": 0.01785920507275729,
+        "cagr": 0.5000937939113672,
+        "ann_vol": 0.07301476344108268,
+        "sharpe": 4.769888827715924,
+        "sortino": 9.382534412999194,
+        "max_drawdown": -0.010334123701528752,
+        "calmar": 48.39247219746238,
+        "downside_deviation_ann": 0.03711921417665376,
+        "var_95_daily": -0.005212563765653155,
+        "cvar_95_daily": -0.005389583010121823,
+        "worst_day": -0.005389583010121823,
+        "ulcer_index": 0.45409709942935944,
+        "share_days_underwater": 0.6363636363636364,
+        "annualized_turnover": 11.87639922100508,
+        "avg_gross_exposure": 0.4829266163738238,
+        "max_gross_exposure": 0.5266434751859659,
+        "trade_entries": 6.0,
+        "closed_trades": 0.0,
+        "skipped_entries": 0.0,
+        "win_rate": null,
+        "avg_trade_return": null,
+        "open_at_end": 6.0,
+        "gate_overrides": 2.0
+      },
+      "SP-05 policy + gate (conservative, long/short)": {
+        "n_days": 11.0,
+        "total_return": 0.0007833241533155011,
+        "cagr": 0.018100075650106184,
+        "ann_vol": 0.019023985695160596,
+        "sharpe": -2.2023083704711097,
+        "sortino": -3.026752801586351,
+        "max_drawdown": -0.0033587570066569983,
+        "calmar": 5.388920846084473,
+        "downside_deviation_ann": 0.01384212246015478,
+        "var_95_daily": -0.0014933953217189933,
+        "cvar_95_daily": -0.0015330695860777954,
+        "worst_day": -0.0015330695860777954,
+        "ulcer_index": 0.19802651406770172,
+        "share_days_underwater": 0.8181818181818182,
+        "annualized_turnover": 4.553963872324314,
+        "avg_gross_exposure": 0.1040811548946985,
+        "max_gross_exposure": 0.1496406562577247,
+        "trade_entries": 2.0,
+        "closed_trades": 1.0,
+        "skipped_entries": 0.0,
+        "win_rate": 0.0,
+        "avg_trade_return": -0.02500752294079933,
+        "open_at_end": 1.0,
+        "gate_overrides": 0.0
+      },
+      "SP-05 policy + gate (aggressive, long/short)": {
+        "n_days": 11.0,
+        "total_return": 0.029088223326846574,
+        "cagr": 0.9287588620270206,
+        "ann_vol": 0.07470207535922117,
+        "sharpe": 8.035504534542016,
+        "sortino": 15.613196124327672,
+        "max_drawdown": -0.007161457961360362,
+        "calmar": 129.6885169246455,
+        "downside_deviation_ann": 0.03844625152395372,
+        "var_95_daily": -0.005376035058493767,
+        "cvar_95_daily": -0.0062369999372987595,
+        "worst_day": -0.0062369999372987595,
+        "ulcer_index": 0.27131610202264284,
+        "share_days_underwater": 0.36363636363636365,
+        "annualized_turnover": 12.733187070780064,
+        "avg_gross_exposure": 0.5502937170037413,
+        "max_gross_exposure": 0.5687189273095445,
+        "trade_entries": 6.0,
+        "closed_trades": 0.0,
+        "skipped_entries": 0.0,
+        "win_rate": null,
+        "avg_trade_return": null,
+        "open_at_end": 6.0,
+        "gate_overrides": 2.0
+      },
+      "SP-05 policy + gate (balanced, long-only)": {
+        "n_days": 11.0,
+        "total_return": 0.01785920507275729,
+        "cagr": 0.5000937939113672,
+        "ann_vol": 0.07301476344108268,
+        "sharpe": 4.769888827715924,
+        "sortino": 9.382534412999194,
+        "max_drawdown": -0.010334123701528752,
+        "calmar": 48.39247219746238,
+        "downside_deviation_ann": 0.03711921417665376,
+        "var_95_daily": -0.005212563765653155,
+        "cvar_95_daily": -0.005389583010121823,
+        "worst_day": -0.005389583010121823,
+        "ulcer_index": 0.45409709942935944,
+        "share_days_underwater": 0.6363636363636364,
+        "annualized_turnover": 11.87639922100508,
+        "avg_gross_exposure": 0.4829266163738238,
+        "max_gross_exposure": 0.5266434751859659,
+        "trade_entries": 6.0,
+        "closed_trades": 0.0,
+        "skipped_entries": 0.0,
+        "win_rate": null,
+        "avg_trade_return": null,
+        "open_at_end": 6.0,
+        "gate_overrides": 2.0
+      },
+      "SP-05 policy ALONE, no gate (balanced, long/short)": {
+        "n_days": 11.0,
+        "total_return": 0.014804733539499404,
+        "cagr": 0.4002865371391786,
+        "ann_vol": 0.07840592543928535,
+        "sharpe": 3.5672368566279737,
+        "sortino": 6.267992866993233,
+        "max_drawdown": -0.011884120038315515,
+        "calmar": 33.6824717226532,
+        "downside_deviation_ann": 0.044622339709076995,
+        "var_95_daily": -0.006279610480229458,
+        "cvar_95_daily": -0.007124745834901858,
+        "worst_day": -0.007124745834901858,
+        "ulcer_index": 0.5915068743953952,
+        "share_days_underwater": 0.6363636363636364,
+        "annualized_turnover": 16.550720250099154,
+        "avg_gross_exposure": 0.4971183912488103,
+        "max_gross_exposure": 0.5342311501262815,
+        "trade_entries": 7.0,
+        "closed_trades": 1.0,
+        "skipped_entries": 0.0,
+        "win_rate": 0.0,
+        "avg_trade_return": -0.03252533569280913,
+        "open_at_end": 6.0,
+        "gate_overrides": 0.0
+      },
+      "Rule-based risk controller + gate (long-only)": {
+        "n_days": 11.0,
+        "total_return": 0.037343400011017325,
+        "cagr": 1.316173576509723,
+        "ann_vol": 0.0949647426732044,
+        "sharpe": 8.27062102285412,
+        "sortino": 15.743823611716882,
+        "max_drawdown": -0.008585938243849789,
+        "calmar": 153.2940884419375,
+        "downside_deviation_ann": 0.049887334649659824,
+        "var_95_daily": -0.006847315691399236,
+        "cvar_95_daily": -0.008585938243849789,
+        "worst_day": -0.008585938243849789,
+        "ulcer_index": 0.31412038358516525,
+        "share_days_underwater": 0.36363636363636365,
+        "annualized_turnover": 13.745454545454544,
+        "avg_gross_exposure": 0.605883040609947,
+        "max_gross_exposure": 0.6146888291806217,
+        "trade_entries": 6.0,
+        "closed_trades": 0.0,
+        "skipped_entries": 0.0,
+        "win_rate": null,
+        "avg_trade_return": null,
+        "open_at_end": 6.0,
+        "gate_overrides": 20.0
+      },
+      "Always-long + gate (gate-only baseline)": {
+        "n_days": 11.0,
+        "total_return": 0.021053106577680003,
+        "cagr": 0.6117179314524166,
+        "ann_vol": 0.10350363038120033,
+        "sharpe": 4.083236207024351,
+        "sortino": 6.509689804503042,
+        "max_drawdown": -0.017195060222691794,
+        "calmar": 35.57521308620665,
+        "downside_deviation_ann": 0.06492318126105348,
+        "var_95_daily": -0.008649758354905335,
+        "cvar_95_daily": -0.012188822103188501,
+        "worst_day": -0.012188822103188501,
+        "ulcer_index": 0.7697537503955293,
+        "share_days_underwater": 0.5454545454545454,
+        "annualized_turnover": 15.905789674429629,
+        "avg_gross_exposure": 0.5346483704359545,
+        "max_gross_exposure": 0.6022846296315512,
+        "trade_entries": 6.0,
+        "closed_trades": 1.0,
+        "skipped_entries": 0.0,
+        "win_rate": 0.0,
+        "avg_trade_return": -0.06380220641659717,
+        "open_at_end": 5.0,
+        "gate_overrides": 140.0
+      },
+      "Conservative label rule + gate (balanced, long/short)": {
+        "n_days": 11.0,
+        "total_return": 0.014332494594213596,
+        "cagr": 0.38543430518015875,
+        "ann_vol": 0.06494688425406711,
+        "sharpe": 4.128587264526041,
+        "sortino": 7.720669116192953,
+        "max_drawdown": -0.009832503607644871,
+        "calmar": 39.20001665501345,
+        "downside_deviation_ann": 0.034730005284076604,
+        "var_95_daily": -0.00488183758769517,
+        "cvar_95_daily": -0.00508805441306126,
+        "worst_day": -0.00508805441306126,
+        "ulcer_index": 0.429873216483752,
+        "share_days_underwater": 0.45454545454545453,
+        "annualized_turnover": 18.31543358749611,
+        "avg_gross_exposure": 0.4097651866108801,
+        "max_gross_exposure": 0.5045652798483732,
+        "trade_entries": 6.0,
+        "closed_trades": 2.0,
+        "skipped_entries": 0.0,
+        "win_rate": 0.0,
+        "avg_trade_return": -0.00789442572765331,
+        "open_at_end": 4.0,
+        "gate_overrides": 1.0
+      },
+      "NIFTY 50 buy & hold": {
+        "n_days": 11.0,
+        "total_return": 0.024031649498409635,
+        "cagr": 0.7229399776691401,
+        "ann_vol": 0.1273068726756886,
+        "sharpe": 3.8647058642397742,
+        "sortino": 5.993803450422028,
+        "max_drawdown": -0.019122511971380818,
+        "calmar": 37.805701403199976,
+        "downside_deviation_ann": 0.0820853772495856,
+        "var_95_daily": -0.010656233486374012,
+        "cvar_95_daily": -0.014932383199930399,
+        "worst_day": -0.014932383199930399,
+        "ulcer_index": 0.8851359468607474,
+        "share_days_underwater": 0.5454545454545454,
+        "annualized_turnover": 0.0,
+        "avg_gross_exposure": 1.0,
+        "max_gross_exposure": 1.0,
+        "trade_entries": null,
+        "closed_trades": null,
+        "skipped_entries": null,
+        "win_rate": null,
+        "avg_trade_return": null,
+        "open_at_end": null,
+        "gate_overrides": null
+      },
+      "Equal-weight universe buy & hold": {
+        "n_days": 11.0,
+        "total_return": 0.012786292699116464,
+        "cagr": 0.3378521543727664,
+        "ann_vol": 0.1432687199175363,
+        "sharpe": 1.6793857921116933,
+        "sortino": 2.3601992975605333,
+        "max_drawdown": -0.023258845354671376,
+        "calmar": 14.525749202976284,
+        "downside_deviation_ann": 0.10194200673317044,
+        "var_95_daily": -0.013213773490398203,
+        "cvar_95_daily": -0.01918145703628014,
+        "worst_day": -0.01918145703628014,
+        "ulcer_index": 1.2522691183246009,
+        "share_days_underwater": 0.7272727272727273,
+        "annualized_turnover": 0.0,
+        "avg_gross_exposure": 1.0,
+        "max_gross_exposure": 1.0,
+        "trade_entries": null,
+        "closed_trades": null,
+        "skipped_entries": null,
+        "win_rate": null,
+        "avg_trade_return": null,
+        "open_at_end": null,
+        "gate_overrides": null
+      },
+      "NIFTY 50 scaled to the main run's average exposure (rest in cash)": {
+        "n_days": 11.0,
+        "total_return": 0.011622177402976996,
+        "cagr": 0.30306369514356213,
+        "ann_vol": 0.0614798772624035,
+        "sharpe": 3.3600789131293385,
+        "sortino": 5.0947624251156585,
+        "max_drawdown": -0.009250630755078038,
+        "calmar": 32.76140872633993,
+        "downside_deviation_ann": 0.04054698176951642,
+        "var_95_daily": -0.005146178780864037,
+        "cvar_95_daily": -0.007211245293139719,
+        "worst_day": -0.007211245293139719,
+        "ulcer_index": 0.42701673379926935,
+        "share_days_underwater": 0.5454545454545454,
+        "annualized_turnover": 0.0,
+        "avg_gross_exposure": 0.4829266163738238,
+        "max_gross_exposure": 0.4829266163738238,
+        "trade_entries": null,
+        "closed_trades": null,
+        "skipped_entries": null,
+        "win_rate": null,
+        "avg_trade_return": null,
+        "open_at_end": null,
+        "gate_overrides": null
+      }
+    },
+    "test": {
+      "SP-05 policy + gate (balanced, long/short)": {
+        "n_days": 495.0,
+        "total_return": -0.05524654354267966,
+        "cagr": -0.028517755847010995,
+        "ann_vol": 0.05538738770531427,
+        "sharpe": -1.577967152154036,
+        "sortino": -2.0848844736992636,
+        "max_drawdown": -0.08354982061179139,
+        "calmar": -0.3413263563965843,
+        "downside_deviation_ann": 0.041920537826026935,
+        "var_95_daily": -0.005895462163490783,
+        "cvar_95_daily": -0.008220004022467675,
+        "worst_day": -0.016329923830205817,
+        "ulcer_index": 5.0585493542810465,
+        "share_days_underwater": 0.9878787878787879,
+        "annualized_turnover": 9.436476864512603,
+        "avg_gross_exposure": 0.2538705245561112,
+        "max_gross_exposure": 0.6002007261175746,
+        "trade_entries": 122.0,
+        "closed_trades": 120.0,
+        "skipped_entries": 0.0,
+        "win_rate": 0.3416666666666667,
+        "avg_trade_return": -0.005817555454169956,
+        "open_at_end": 2.0,
+        "gate_overrides": 90.0
+      },
+      "SP-05 policy + gate (conservative, long/short)": {
+        "n_days": 495.0,
+        "total_return": -0.08206333946602495,
+        "cagr": -0.04265540143227964,
+        "ann_vol": 0.04042621256775668,
+        "sharpe": -2.5421982436106263,
+        "sortino": -3.082333545435784,
+        "max_drawdown": -0.09645094107280261,
+        "calmar": -0.442249717398638,
+        "downside_deviation_ann": 0.033342091331342576,
+        "var_95_daily": -0.0041713784308518576,
+        "cvar_95_daily": -0.006881851882531565,
+        "worst_day": -0.015602387343025437,
+        "ulcer_index": 7.027923585857915,
+        "share_days_underwater": 0.9636363636363636,
+        "annualized_turnover": 8.009069969319341,
+        "avg_gross_exposure": 0.16211447940235224,
+        "max_gross_exposure": 0.5781634619374312,
+        "trade_entries": 114.0,
+        "closed_trades": 114.0,
+        "skipped_entries": 0.0,
+        "win_rate": 0.2719298245614035,
+        "avg_trade_return": -0.009574378554007012,
+        "open_at_end": 0.0,
+        "gate_overrides": 31.0
+      },
+      "SP-05 policy + gate (aggressive, long/short)": {
+        "n_days": 495.0,
+        "total_return": 0.0015027668265026328,
+        "cagr": 0.0007647629452123272,
+        "ann_vol": 0.061786372890429424,
+        "sharpe": -0.9279216239389529,
+        "sortino": -1.32877886359144,
+        "max_drawdown": -0.08872985630415975,
+        "calmar": 0.008619003535752083,
+        "downside_deviation_ann": 0.043147067612759035,
+        "var_95_daily": -0.006170211910228229,
+        "cvar_95_daily": -0.008825788460467585,
+        "worst_day": -0.014909656557521966,
+        "ulcer_index": 5.812581938156655,
+        "share_days_underwater": 0.9656565656565657,
+        "annualized_turnover": 11.218998766544154,
+        "avg_gross_exposure": 0.25162947654532325,
+        "max_gross_exposure": 0.5773819366611351,
+        "trade_entries": 157.0,
+        "closed_trades": 152.0,
+        "skipped_entries": 0.0,
+        "win_rate": 0.375,
+        "avg_trade_return": -0.001585329478265586,
+        "open_at_end": 5.0,
+        "gate_overrides": 251.0
+      },
+      "SP-05 policy + gate (balanced, long-only)": {
+        "n_days": 495.0,
+        "total_return": -0.05539969508097531,
+        "cagr": -0.028597932950868987,
+        "ann_vol": 0.055636804559933646,
+        "sharpe": -1.5721276566240858,
+        "sortino": -2.0755990411064924,
+        "max_drawdown": -0.08115308437473834,
+        "calmar": -0.3523948987423954,
+        "downside_deviation_ann": 0.04214116380022601,
+        "var_95_daily": -0.005896680477409611,
+        "cvar_95_daily": -0.008264039825321277,
+        "worst_day": -0.016329923830205817,
+        "ulcer_index": 4.922142560836618,
+        "share_days_underwater": 0.9878787878787879,
+        "annualized_turnover": 9.34790008908844,
+        "avg_gross_exposure": 0.250992261344147,
+        "max_gross_exposure": 0.6002007261175746,
+        "trade_entries": 120.0,
+        "closed_trades": 119.0,
+        "skipped_entries": 0.0,
+        "win_rate": 0.3445378151260504,
+        "avg_trade_return": -0.005557178976840459,
+        "open_at_end": 1.0,
+        "gate_overrides": 90.0
+      },
+      "SP-05 policy ALONE, no gate (balanced, long/short)": {
+        "n_days": 495.0,
+        "total_return": -0.07559442304176656,
+        "cagr": -0.03922667212425779,
+        "ann_vol": 0.05507377498644933,
+        "sharpe": -1.788493744302115,
+        "sortino": -2.3015714969919885,
+        "max_drawdown": -0.09856859168463372,
+        "calmar": -0.3979631995733688,
+        "downside_deviation_ann": 0.042796455451025166,
+        "var_95_daily": -0.0059336464913883665,
+        "cvar_95_daily": -0.008634163753256185,
+        "worst_day": -0.016329923830205817,
+        "ulcer_index": 6.128644768244861,
+        "share_days_underwater": 0.9878787878787879,
+        "annualized_turnover": 12.307045924334524,
+        "avg_gross_exposure": 0.25307603783239496,
+        "max_gross_exposure": 0.9136972819349333,
+        "trade_entries": 164.0,
+        "closed_trades": 163.0,
+        "skipped_entries": 0.0,
+        "win_rate": 0.4049079754601227,
+        "avg_trade_return": -0.005131559184008835,
+        "open_at_end": 1.0,
+        "gate_overrides": 0.0
+      },
+      "Rule-based risk controller + gate (long-only)": {
+        "n_days": 495.0,
+        "total_return": 0.04946784711170649,
+        "cagr": 0.024885142389053927,
+        "ann_vol": 0.08151180862627354,
+        "sharpe": -0.3938010541041786,
+        "sortino": -0.5285251059355557,
+        "max_drawdown": -0.09847160533781507,
+        "calmar": 0.25271388948807494,
+        "downside_deviation_ann": 0.06073398557320105,
+        "var_95_daily": -0.00832333070101625,
+        "cvar_95_daily": -0.012691872709059275,
+        "worst_day": -0.020615027217301574,
+        "ulcer_index": 4.271833357470329,
+        "share_days_underwater": 0.9414141414141414,
+        "annualized_turnover": 5.508876398675591,
+        "avg_gross_exposure": 0.4215662809245074,
+        "max_gross_exposure": 0.6050797428098251,
+        "trade_entries": 56.0,
+        "closed_trades": 52.0,
+        "skipped_entries": 0.0,
+        "win_rate": 0.34615384615384615,
+        "avg_trade_return": 0.01025173353468722,
+        "open_at_end": 4.0,
+        "gate_overrides": 1446.0
+      },
+      "Always-long + gate (gate-only baseline)": {
+        "n_days": 495.0,
+        "total_return": -0.026958775767096932,
+        "cagr": -0.01381652213631579,
+        "ann_vol": 0.08504547283072189,
+        "sharpe": -0.8266783716999325,
+        "sortino": -1.1495725226472626,
+        "max_drawdown": -0.11220931497300957,
+        "calmar": -0.1231316859891638,
+        "downside_deviation_ann": 0.06115773612807953,
+        "var_95_daily": -0.008509588907119881,
+        "cvar_95_daily": -0.011151543034084605,
+        "worst_day": -0.019566403104395724,
+        "ulcer_index": 5.699709442310449,
+        "share_days_underwater": 0.9797979797979798,
+        "annualized_turnover": 4.883132624299457,
+        "avg_gross_exposure": 0.5080080568350723,
+        "max_gross_exposure": 0.60436209080454,
+        "trade_entries": 50.0,
+        "closed_trades": 46.0,
+        "skipped_entries": 0.0,
+        "win_rate": 0.21739130434782608,
+        "avg_trade_return": -0.007343255628423514,
+        "open_at_end": 4.0,
+        "gate_overrides": 7560.0
+      },
+      "Conservative label rule + gate (balanced, long/short)": {
+        "n_days": 495.0,
+        "total_return": -0.05078117725664477,
+        "cagr": -0.026182868906117096,
+        "ann_vol": 0.05578017766303483,
+        "sharpe": -1.5234203428839888,
+        "sortino": -1.9879851972056242,
+        "max_drawdown": -0.082898216934296,
+        "calmar": -0.31584357148319947,
+        "downside_deviation_ann": 0.04274511575890819,
+        "var_95_daily": -0.005858164813278865,
+        "cvar_95_daily": -0.008973154816303421,
+        "worst_day": -0.018350695249785165,
+        "ulcer_index": 5.3080304546427675,
+        "share_days_underwater": 0.9838383838383838,
+        "annualized_turnover": 5.28653735688073,
+        "avg_gross_exposure": 0.2241124609668063,
+        "max_gross_exposure": 0.6117575607972559,
+        "trade_entries": 52.0,
+        "closed_trades": 52.0,
+        "skipped_entries": 0.0,
+        "win_rate": 0.23076923076923078,
+        "avg_trade_return": -0.00870652504971741,
+        "open_at_end": 0.0,
+        "gate_overrides": 35.0
+      },
+      "NIFTY 50 buy & hold": {
+        "n_days": 495.0,
+        "total_return": -0.08686313829400771,
+        "cagr": -0.04520711807264832,
+        "ann_vol": 0.1328051814621623,
+        "sharpe": -0.7338586542776923,
+        "sortino": -1.0130155098858908,
+        "max_drawdown": -0.15560104443414768,
+        "calmar": -0.29053222770481174,
+        "downside_deviation_ann": 0.0962080351167628,
+        "var_95_daily": -0.013826565719171879,
+        "cvar_95_daily": -0.018337326864140864,
+        "worst_day": -0.03262077926216955,
+        "ulcer_index": 6.607742515748484,
+        "share_days_underwater": 0.9616161616161616,
+        "annualized_turnover": 0.0,
+        "avg_gross_exposure": 1.0,
+        "max_gross_exposure": 1.0,
+        "trade_entries": null,
+        "closed_trades": null,
+        "skipped_entries": null,
+        "win_rate": null,
+        "avg_trade_return": null,
+        "open_at_end": null,
+        "gate_overrides": null
+      },
+      "Equal-weight universe buy & hold": {
+        "n_days": 495.0,
+        "total_return": 0.06767882756251042,
+        "cagr": 0.03390078837685917,
+        "ann_vol": 0.17430425139101902,
+        "sharpe": -0.06601103190708632,
+        "sortino": -0.09281818169408663,
+        "max_drawdown": -0.16955772580388961,
+        "calmar": 0.19993655975351313,
+        "downside_deviation_ann": 0.12396281946176489,
+        "var_95_daily": -0.018352432875152678,
+        "cvar_95_daily": -0.025098095970231587,
+        "worst_day": -0.038523075502181744,
+        "ulcer_index": 6.2434970326497705,
+        "share_days_underwater": 0.9252525252525252,
+        "annualized_turnover": 0.0,
+        "avg_gross_exposure": 1.0,
+        "max_gross_exposure": 1.0,
+        "trade_entries": null,
+        "closed_trades": null,
+        "skipped_entries": null,
+        "win_rate": null,
+        "avg_trade_return": null,
+        "open_at_end": null,
+        "gate_overrides": null
+      },
+      "NIFTY 50 scaled to the main run's average exposure (rest in cash)": {
+        "n_days": 495.0,
+        "total_return": -0.019600208989092982,
+        "cagr": -0.010026766752846417,
+        "ann_vol": 0.033715321081568675,
+        "sharpe": -2.0616754180073054,
+        "sortino": -2.6733081018782925,
+        "max_drawdown": -0.040534295886101135,
+        "calmar": -0.24736501606000535,
+        "downside_deviation_ann": 0.026001510501260656,
+        "var_95_daily": -0.00351015749193571,
+        "cvar_95_daily": -0.00465530678995631,
+        "worst_day": -0.0082814543427161,
+        "ulcer_index": 1.6793519786912032,
+        "share_days_underwater": 0.9595959595959596,
+        "annualized_turnover": 0.0,
+        "avg_gross_exposure": 0.2538705245561111,
+        "max_gross_exposure": 0.2538705245561112,
+        "trade_entries": null,
+        "closed_trades": null,
+        "skipped_entries": null,
+        "win_rate": null,
+        "avg_trade_return": null,
+        "open_at_end": null,
+        "gate_overrides": null
+      }
+    }
+  },
+  "gate_overrides_by_reason_test": {
+    "SP-05 policy + gate (balanced, long/short)": {
+      "invalid_action": 0,
+      "short_not_allowed": 0,
+      "position_stop_loss": 11,
+      "max_holding_period": 0,
+      "drawdown_flatten": 0,
+      "drawdown_halt": 0,
+      "recent_loss_halt": 0,
+      "volatility_prohibited": 20,
+      "abnormal_gap_or_move": 0,
+      "market_stress": 0,
+      "gross_exposure_limit": 70,
+      "low_confidence_entry": 0,
+      "risk_data_missing": 0
+    },
+    "SP-05 policy + gate (conservative, long/short)": {
+      "invalid_action": 0,
+      "short_not_allowed": 0,
+      "position_stop_loss": 8,
+      "max_holding_period": 0,
+      "drawdown_flatten": 0,
+      "drawdown_halt": 0,
+      "recent_loss_halt": 0,
+      "volatility_prohibited": 1,
+      "abnormal_gap_or_move": 0,
+      "market_stress": 0,
+      "gross_exposure_limit": 30,
+      "low_confidence_entry": 0,
+      "risk_data_missing": 0
+    },
+    "SP-05 policy + gate (aggressive, long/short)": {
+      "invalid_action": 0,
+      "short_not_allowed": 0,
+      "position_stop_loss": 8,
+      "max_holding_period": 0,
+      "drawdown_flatten": 0,
+      "drawdown_halt": 0,
+      "recent_loss_halt": 0,
+      "volatility_prohibited": 26,
+      "abnormal_gap_or_move": 0,
+      "market_stress": 0,
+      "gross_exposure_limit": 225,
+      "low_confidence_entry": 0,
+      "risk_data_missing": 0
+    },
+    "SP-05 policy + gate (balanced, long-only)": {
+      "invalid_action": 0,
+      "short_not_allowed": 0,
+      "position_stop_loss": 11,
+      "max_holding_period": 0,
+      "drawdown_flatten": 0,
+      "drawdown_halt": 0,
+      "recent_loss_halt": 0,
+      "volatility_prohibited": 21,
+      "abnormal_gap_or_move": 0,
+      "market_stress": 0,
+      "gross_exposure_limit": 69,
+      "low_confidence_entry": 0,
+      "risk_data_missing": 0
+    },
+    "Rule-based risk controller + gate (long-only)": {
+      "invalid_action": 0,
+      "short_not_allowed": 0,
+      "position_stop_loss": 26,
+      "max_holding_period": 3,
+      "drawdown_flatten": 0,
+      "drawdown_halt": 91,
+      "recent_loss_halt": 2,
+      "volatility_prohibited": 72,
+      "abnormal_gap_or_move": 8,
+      "market_stress": 1,
+      "gross_exposure_limit": 1260,
+      "low_confidence_entry": 0,
+      "risk_data_missing": 0
+    },
+    "Always-long + gate (gate-only baseline)": {
+      "invalid_action": 0,
+      "short_not_allowed": 0,
+      "position_stop_loss": 36,
+      "max_holding_period": 10,
+      "drawdown_flatten": 0,
+      "drawdown_halt": 1054,
+      "recent_loss_halt": 212,
+      "volatility_prohibited": 1190,
+      "abnormal_gap_or_move": 44,
+      "market_stress": 164,
+      "gross_exposure_limit": 5541,
+      "low_confidence_entry": 0,
+      "risk_data_missing": 0
+    },
+    "Conservative label rule + gate (balanced, long/short)": {
+      "invalid_action": 0,
+      "short_not_allowed": 0,
+      "position_stop_loss": 4,
+      "max_holding_period": 0,
+      "drawdown_flatten": 0,
+      "drawdown_halt": 0,
+      "recent_loss_halt": 0,
+      "volatility_prohibited": 14,
+      "abnormal_gap_or_move": 0,
+      "market_stress": 0,
+      "gross_exposure_limit": 21,
+      "low_confidence_entry": 0,
+      "risk_data_missing": 0
+    }
+  },
+  "blocked_entries_hindsight": {
+    "val": {
+      "volatility_prohibited": {
+        "blocked_entries": 2,
+        "mean_dir_adj_fwd_return": -0.005481741391122341,
+        "share_that_would_have_lost": 1.0
+      }
+    },
+    "test": {
+      "gross_exposure_limit": {
+        "blocked_entries": 70,
+        "mean_dir_adj_fwd_return": -0.007871440739836543,
+        "share_that_would_have_lost": 0.5571428571428572
+      },
+      "volatility_prohibited": {
+        "blocked_entries": 20,
+        "mean_dir_adj_fwd_return": 0.01925994227640331,
+        "share_that_would_have_lost": 0.2
+      }
+    }
+  },
+  "trades_by_exit_authority": {
+    "test": {
+      "gate: position_stop_loss": {
+        "trades": 11,
+        "mean_return": -0.061495534466333164,
+        "win_rate": 0.0,
+        "median_bars": 3.0
+      },
+      "policy": {
+        "trades": 109,
+        "mean_return": -0.00019867683826357737,
+        "win_rate": 0.3761467889908257,
+        "median_bars": 1.0
+      }
+    }
+  },
+  "stress_tests": {
+    "val": [
+      {
+        "strategy": "SP-05 policy + gate (balanced, long/short)",
+        "period": "normal",
+        "days": 11,
+        "compounded_return": 0.01785920507275729,
+        "mean_daily_pct": 0.16201281920473867,
+        "ann_vol": 0.07301476344108268,
+        "worst_day": -0.005389583010121823,
+        "cvar5_daily": -0.005389583010121823,
+        "max_dd_within_group": -0.010334123701528752,
+        "avg_gross_exposure": 0.4829266163738238
+      },
+      {
+        "strategy": "SP-05 policy ALONE, no gate (balanced, long/short)",
+        "period": "normal",
+        "days": 11,
+        "compounded_return": 0.014804733539499404,
+        "mean_daily_pct": 0.13479861389089026,
+        "ann_vol": 0.07840592543928535,
+        "worst_day": -0.007124745834901858,
+        "cvar5_daily": -0.007124745834901858,
+        "max_dd_within_group": -0.011884120038315515,
+        "avg_gross_exposure": 0.4971183912488103
+      },
+      {
+        "strategy": "Rule-based risk controller + gate (long-only)",
+        "period": "normal",
+        "days": 11,
+        "compounded_return": 0.037343400011017325,
+        "mean_daily_pct": 0.33548309412021265,
+        "ann_vol": 0.0949647426732044,
+        "worst_day": -0.008585938243849789,
+        "cvar5_daily": -0.008585938243849789,
+        "max_dd_within_group": -0.008585938243849789,
+        "avg_gross_exposure": 0.605883040609947
+      },
+      {
+        "strategy": "Always-long + gate (gate-only baseline)",
+        "period": "normal",
+        "days": 11,
+        "compounded_return": 0.021053106577680003,
+        "mean_daily_pct": 0.19151975044880268,
+        "ann_vol": 0.10350363038120033,
+        "worst_day": -0.012188822103188501,
+        "cvar5_daily": -0.012188822103188501,
+        "max_dd_within_group": -0.017195060222691794,
+        "avg_gross_exposure": 0.5346483704359545
+      },
+      {
+        "strategy": "NIFTY 50 buy & hold",
+        "period": "normal",
+        "days": 11,
+        "compounded_return": 0.024031649498409635,
+        "mean_daily_pct": 0.21904905451895243,
+        "ann_vol": 0.1273068726756886,
+        "worst_day": -0.014932383199930399,
+        "cvar5_daily": -0.014932383199930399,
+        "max_dd_within_group": -0.019122511971380818,
+        "avg_gross_exposure": 1.0
+      },
+      {
+        "strategy": "Equal-weight universe buy & hold",
+        "period": "normal",
+        "days": 11,
+        "compounded_return": 0.012786292699116464,
+        "mean_daily_pct": 0.11928708439823016,
+        "ann_vol": 0.1432687199175363,
+        "worst_day": -0.01918145703628014,
+        "cvar5_daily": -0.01918145703628014,
+        "max_dd_within_group": -0.023258845354671376,
+        "avg_gross_exposure": 1.0
+      }
+    ],
+    "test": [
+      {
+        "strategy": "SP-05 policy + gate (balanced, long/short)",
+        "period": "normal",
+        "days": 422,
+        "compounded_return": -0.058321779411737884,
+        "mean_daily_pct": -0.01355339838860079,
+        "ann_vol": 0.058833481924247075,
+        "worst_day": -0.016329923830205817,
+        "cvar5_daily": -0.008522803242991291,
+        "max_dd_within_group": -0.08527867397114264,
+        "avg_gross_exposure": 0.28583288889043706
+      },
+      {
+        "strategy": "SP-05 policy + gate (balanced, long/short)",
+        "period": "high_vol",
+        "days": 59,
+        "compounded_return": -0.012951257630118729,
+        "mean_daily_pct": -0.021966862024575456,
+        "ann_vol": 0.025347417593806567,
+        "worst_day": -0.0057337612097674295,
+        "cvar5_daily": -0.004186366408409674,
+        "max_dd_within_group": -0.013913775285231189,
+        "avg_gross_exposure": 0.061201822488523405
+      },
+      {
+        "strategy": "SP-05 policy + gate (balanced, long/short)",
+        "period": "severe_drawdown",
+        "days": 25,
+        "compounded_return": 0.016429740570155005,
+        "mean_daily_pct": 0.06534154284281657,
+        "ann_vol": 0.026680056653184635,
+        "worst_day": -0.0030659102632849544,
+        "cvar5_daily": -0.001756461484989813,
+        "max_dd_within_group": -0.0035115524691341493,
+        "avg_gross_exposure": 0.057340920667508274
+      },
+      {
+        "strategy": "SP-05 policy + gate (balanced, long/short)",
+        "period": "any stress",
+        "days": 73,
+        "compounded_return": 0.003265697137115886,
+        "mean_daily_pct": 0.0046232015290474295,
+        "ann_vol": 0.02831279720013325,
+        "worst_day": -0.0057337612097674295,
+        "cvar5_daily": -0.003906252372128494,
+        "max_dd_within_group": -0.013483491260301683,
+        "avg_gross_exposure": 0.06910178826726832
+      },
+      {
+        "strategy": "SP-05 policy ALONE, no gate (balanced, long/short)",
+        "period": "normal",
+        "days": 422,
+        "compounded_return": -0.07961114220870846,
+        "mean_daily_pct": -0.01897757398038256,
+        "ann_vol": 0.058550689816644755,
+        "worst_day": -0.016329923830205817,
+        "cvar5_daily": -0.008977297740414902,
+        "max_dd_within_group": -0.10080444224747054,
+        "avg_gross_exposure": 0.28643846822967145
+      },
+      {
+        "strategy": "SP-05 policy ALONE, no gate (balanced, long/short)",
+        "period": "high_vol",
+        "days": 59,
+        "compounded_return": -0.012327512709837563,
+        "mean_daily_pct": -0.020908493295805984,
+        "ann_vol": 0.024088354739547742,
+        "worst_day": -0.0057337612097674295,
+        "cvar5_daily": -0.00410655545614765,
+        "max_dd_within_group": -0.012327512709837563,
+        "avg_gross_exposure": 0.051445274806352435
+      },
+      {
+        "strategy": "SP-05 policy ALONE, no gate (balanced, long/short)",
+        "period": "severe_drawdown",
+        "days": 25,
+        "compounded_return": 0.01690000219238441,
+        "mean_daily_pct": 0.06719254837979127,
+        "ann_vol": 0.026637355637448318,
+        "worst_day": -0.0030659102632849544,
+        "cvar5_daily": -0.001756461484989813,
+        "max_dd_within_group": -0.0035115524691341493,
+        "avg_gross_exposure": 0.05441335682157431
+      },
+      {
+        "strategy": "SP-05 policy ALONE, no gate (balanced, long/short)",
+        "period": "any stress",
+        "days": 73,
+        "compounded_return": 0.00436415449072336,
+        "mean_daily_pct": 0.0061125014389346415,
+        "ann_vol": 0.027413802920132478,
+        "worst_day": -0.0057337612097674295,
+        "cvar5_daily": -0.003846394157931976,
+        "max_dd_within_group": -0.011244621976954638,
+        "avg_gross_exposure": 0.06021376896046782
+      },
+      {
+        "strategy": "Rule-based risk controller + gate (long-only)",
+        "period": "normal",
+        "days": 422,
+        "compounded_return": -0.0422165068992858,
+        "mean_daily_pct": -0.00889978882731297,
+        "ann_vol": 0.08163322641578893,
+        "worst_day": -0.020615027217301574,
+        "cvar5_daily": -0.012932690985191815,
+        "max_dd_within_group": -0.09787504207237374,
+        "avg_gross_exposure": 0.4393585683727414
+      },
+      {
+        "strategy": "Rule-based risk controller + gate (long-only)",
+        "period": "high_vol",
+        "days": 59,
+        "compounded_return": 0.056072023741732924,
+        "mean_daily_pct": 0.09376129330611022,
+        "ann_vol": 0.08005608414091063,
+        "worst_day": -0.012481452780659374,
+        "cvar5_daily": -0.010766568800396318,
+        "max_dd_within_group": -0.01704205337101572,
+        "avg_gross_exposure": 0.32217427025808554
+      },
+      {
+        "strategy": "Rule-based risk controller + gate (long-only)",
+        "period": "severe_drawdown",
+        "days": 25,
+        "compounded_return": 0.03596362728668345,
+        "mean_daily_pct": 0.1420939531983576,
+        "ann_vol": 0.059333589092947656,
+        "worst_day": -0.002988470195736004,
+        "cvar5_daily": -0.002149512759413885,
+        "max_dd_within_group": -0.004847035248300768,
+        "avg_gross_exposure": 0.17819476173978527
+      },
+      {
+        "strategy": "Rule-based risk controller + gate (long-only)",
+        "period": "any stress",
+        "days": 73,
+        "compounded_return": 0.09572555245671666,
+        "mean_daily_pct": 0.12652299702016886,
+        "ann_vol": 0.07887434024977222,
+        "worst_day": -0.012481452780659374,
+        "cvar5_daily": -0.009704755514168495,
+        "max_dd_within_group": -0.01704205337101583,
+        "avg_gross_exposure": 0.31871223567581236
+      },
+      {
+        "strategy": "Always-long + gate (gate-only baseline)",
+        "period": "normal",
+        "days": 422,
+        "compounded_return": -0.07701965499370234,
+        "mean_daily_pct": -0.01771277247559445,
+        "ann_vol": 0.0803565359775099,
+        "worst_day": -0.019566403104395724,
+        "cvar5_daily": -0.010382136545582822,
+        "max_dd_within_group": -0.11517380869954963,
+        "avg_gross_exposure": 0.5194203582284106
+      },
+      {
+        "strategy": "Always-long + gate (gate-only baseline)",
+        "period": "high_vol",
+        "days": 59,
+        "compounded_return": 0.04569796154407024,
+        "mean_daily_pct": 0.07819029834740217,
+        "ann_vol": 0.11158083543786775,
+        "worst_day": -0.015375896088000607,
+        "cvar5_daily": -0.014013895407935332,
+        "max_dd_within_group": -0.04481217802474047,
+        "avg_gross_exposure": 0.4465146770175091
+      },
+      {
+        "strategy": "Always-long + gate (gate-only baseline)",
+        "period": "severe_drawdown",
+        "days": 25,
+        "compounded_return": 0.015070894051409489,
+        "mean_daily_pct": 0.06265317912850854,
+        "ann_vol": 0.12123365804672011,
+        "worst_day": -0.015343526264981922,
+        "cvar5_daily": -0.015167642611008225,
+        "max_dd_within_group": -0.03180907686399659,
+        "avg_gross_exposure": 0.38528203072423894
+      },
+      {
+        "strategy": "Always-long + gate (gate-only baseline)",
+        "period": "any stress",
+        "days": 73,
+        "compounded_return": 0.05423829391108459,
+        "mean_daily_pct": 0.07466498437905492,
+        "ann_vol": 0.10808411590197194,
+        "worst_day": -0.015375896088000607,
+        "cvar5_daily": -0.014258361295210131,
+        "max_dd_within_group": -0.04875577731252234,
+        "avg_gross_exposure": 0.44203557480782885
+      },
+      {
+        "strategy": "NIFTY 50 buy & hold",
+        "period": "normal",
+        "days": 422,
+        "compounded_return": -0.22865538082690395,
+        "mean_daily_pct": -0.05855238894521348,
+        "ann_vol": 0.12202896613880097,
+        "worst_day": -0.03262077926216955,
+        "cvar5_daily": -0.017412705859346525,
+        "max_dd_within_group": -0.2464375708611004,
+        "avg_gross_exposure": 1.0
+      },
+      {
+        "strategy": "NIFTY 50 buy & hold",
+        "period": "high_vol",
+        "days": 59,
+        "compounded_return": 0.12609562809921004,
+        "mean_daily_pct": 0.2079379281752736,
+        "ann_vol": 0.1821833834918951,
+        "worst_day": -0.026037751600726855,
+        "cvar5_daily": -0.0227735527746199,
+        "max_dd_within_group": -0.05700089981715395,
+        "avg_gross_exposure": 1.0
+      },
+      {
+        "strategy": "NIFTY 50 buy & hold",
+        "period": "severe_drawdown",
+        "days": 25,
+        "compounded_return": 0.09674834625594997,
+        "mean_daily_pct": 0.3807845082271668,
+        "ann_vol": 0.23719199353550913,
+        "worst_day": -0.026037751600726855,
+        "cvar5_daily": -0.023715803597234852,
+        "max_dd_within_group": -0.04183600937978038,
+        "avg_gross_exposure": 1.0
+      },
+      {
+        "strategy": "NIFTY 50 buy & hold",
+        "period": "any stress",
+        "days": 73,
+        "compounded_return": 0.18382476393612812,
+        "mean_daily_pct": 0.23768285379527568,
+        "ann_vol": 0.17896375323048824,
+        "worst_day": -0.026037751600726855,
+        "cvar5_daily": -0.02224163160902229,
+        "max_dd_within_group": -0.05146993988674875,
+        "avg_gross_exposure": 1.0
+      },
+      {
+        "strategy": "Equal-weight universe buy & hold",
+        "period": "normal",
+        "days": 422,
+        "compounded_return": -0.16949989876586968,
+        "mean_daily_pct": -0.03870830677771857,
+        "ann_vol": 0.16345931708747252,
+        "worst_day": -0.038523075502181744,
+        "cvar5_daily": -0.024259182960941962,
+        "max_dd_within_group": -0.20698834778999886,
+        "avg_gross_exposure": 1.0
+      },
+      {
+        "strategy": "Equal-weight universe buy & hold",
+        "period": "high_vol",
+        "days": 59,
+        "compounded_return": 0.19695123922517377,
+        "mean_daily_pct": 0.31541346617180316,
+        "ann_vol": 0.22963487429197557,
+        "worst_day": -0.03074294173846707,
+        "cvar5_daily": -0.028686318285662232,
+        "max_dd_within_group": -0.054551076934091114,
+        "avg_gross_exposure": 1.0
+      },
+      {
+        "strategy": "Equal-weight universe buy & hold",
+        "period": "severe_drawdown",
+        "days": 25,
+        "compounded_return": 0.13902701829454012,
+        "mean_daily_pct": 0.5386405522025386,
+        "ann_vol": 0.29526695022038996,
+        "worst_day": -0.03074294173846707,
+        "cvar5_daily": -0.02928582988029608,
+        "max_dd_within_group": -0.054551076934091114,
+        "avg_gross_exposure": 1.0
+      },
+      {
+        "strategy": "Equal-weight universe buy & hold",
+        "period": "any stress",
+        "days": 73,
+        "compounded_return": 0.2855854273538705,
+        "mean_daily_pct": 0.3542535878840015,
+        "ann_vol": 0.22104049096345285,
+        "worst_day": -0.03074294173846707,
+        "cvar5_daily": -0.028002975758017648,
+        "max_dd_within_group": -0.054551076934091114,
+        "avg_gross_exposure": 1.0
+      }
+    ],
+    "val+test": [
+      {
+        "strategy": "SP-05 policy + gate (balanced, long/short)",
+        "period": "normal",
+        "days": 433,
+        "compounded_return": -0.041504154957701545,
+        "mean_daily_pct": -0.009093286625259602,
+        "ann_vol": 0.059295227281994344,
+        "worst_day": -0.016329923830205817,
+        "cvar5_daily": -0.008522803242991291,
+        "max_dd_within_group": -0.08527867397114175,
+        "avg_gross_exposure": 0.29083988889578877
+      },
+      {
+        "strategy": "SP-05 policy + gate (balanced, long/short)",
+        "period": "high_vol",
+        "days": 59,
+        "compounded_return": -0.012951257630118729,
+        "mean_daily_pct": -0.021966862024575456,
+        "ann_vol": 0.025347417593806567,
+        "worst_day": -0.0057337612097674295,
+        "cvar5_daily": -0.004186366408409674,
+        "max_dd_within_group": -0.013913775285231189,
+        "avg_gross_exposure": 0.061201822488523405
+      },
+      {
+        "strategy": "SP-05 policy + gate (balanced, long/short)",
+        "period": "severe_drawdown",
+        "days": 25,
+        "compounded_return": 0.016429740570155005,
+        "mean_daily_pct": 0.06534154284281657,
+        "ann_vol": 0.026680056653184635,
+        "worst_day": -0.0030659102632849544,
+        "cvar5_daily": -0.001756461484989813,
+        "max_dd_within_group": -0.0035115524691341493,
+        "avg_gross_exposure": 0.057340920667508274
+      },
+      {
+        "strategy": "SP-05 policy + gate (balanced, long/short)",
+        "period": "any stress",
+        "days": 73,
+        "compounded_return": 0.003265697137115886,
+        "mean_daily_pct": 0.0046232015290474295,
+        "ann_vol": 0.02831279720013325,
+        "worst_day": -0.0057337612097674295,
+        "cvar5_daily": -0.003906252372128494,
+        "max_dd_within_group": -0.013483491260301683,
+        "avg_gross_exposure": 0.06910178826726832
+      },
+      {
+        "strategy": "SP-05 policy ALONE, no gate (balanced, long/short)",
+        "period": "normal",
+        "days": 433,
+        "compounded_return": -0.06598503041638415,
+        "mean_daily_pct": -0.015071019554091566,
+        "ann_vol": 0.059143745721991534,
+        "worst_day": -0.016329923830205817,
+        "cvar5_daily": -0.009010376582777691,
+        "max_dd_within_group": -0.10080444224746976,
+        "avg_gross_exposure": 0.29179061408004214
+      },
+      {
+        "strategy": "SP-05 policy ALONE, no gate (balanced, long/short)",
+        "period": "high_vol",
+        "days": 59,
+        "compounded_return": -0.012327512709837563,
+        "mean_daily_pct": -0.020908493295805984,
+        "ann_vol": 0.024088354739547742,
+        "worst_day": -0.0057337612097674295,
+        "cvar5_daily": -0.00410655545614765,
+        "max_dd_within_group": -0.012327512709837563,
+        "avg_gross_exposure": 0.051445274806352435
+      },
+      {
+        "strategy": "SP-05 policy ALONE, no gate (balanced, long/short)",
+        "period": "severe_drawdown",
+        "days": 25,
+        "compounded_return": 0.01690000219238441,
+        "mean_daily_pct": 0.06719254837979127,
+        "ann_vol": 0.026637355637448318,
+        "worst_day": -0.0030659102632849544,
+        "cvar5_daily": -0.001756461484989813,
+        "max_dd_within_group": -0.0035115524691341493,
+        "avg_gross_exposure": 0.05441335682157431
+      },
+      {
+        "strategy": "SP-05 policy ALONE, no gate (balanced, long/short)",
+        "period": "any stress",
+        "days": 73,
+        "compounded_return": 0.00436415449072336,
+        "mean_daily_pct": 0.0061125014389346415,
+        "ann_vol": 0.027413802920132478,
+        "worst_day": -0.0057337612097674295,
+        "cvar5_daily": -0.003846394157931976,
+        "max_dd_within_group": -0.011244621976954638,
+        "avg_gross_exposure": 0.06021376896046782
+      },
+      {
+        "strategy": "Rule-based risk controller + gate (long-only)",
+        "period": "normal",
+        "days": 433,
+        "compounded_return": -0.006449614792475411,
+        "mean_daily_pct": -0.00015103198568991647,
+        "ann_vol": 0.08232389679815175,
+        "worst_day": -0.020615027217301574,
+        "cvar5_daily": -0.012932690985191815,
+        "max_dd_within_group": -0.09787504207237341,
+        "avg_gross_exposure": 0.4435889822171045
+      },
+      {
+        "strategy": "Rule-based risk controller + gate (long-only)",
+        "period": "high_vol",
+        "days": 59,
+        "compounded_return": 0.056072023741732924,
+        "mean_daily_pct": 0.09376129330611022,
+        "ann_vol": 0.08005608414091063,
+        "worst_day": -0.012481452780659374,
+        "cvar5_daily": -0.010766568800396318,
+        "max_dd_within_group": -0.01704205337101572,
+        "avg_gross_exposure": 0.32217427025808554
+      },
+      {
+        "strategy": "Rule-based risk controller + gate (long-only)",
+        "period": "severe_drawdown",
+        "days": 25,
+        "compounded_return": 0.03596362728668345,
+        "mean_daily_pct": 0.1420939531983576,
+        "ann_vol": 0.059333589092947656,
+        "worst_day": -0.002988470195736004,
+        "cvar5_daily": -0.002149512759413885,
+        "max_dd_within_group": -0.004847035248300768,
+        "avg_gross_exposure": 0.17819476173978527
+      },
+      {
+        "strategy": "Rule-based risk controller + gate (long-only)",
+        "period": "any stress",
+        "days": 73,
+        "compounded_return": 0.09572555245671666,
+        "mean_daily_pct": 0.12652299702016886,
+        "ann_vol": 0.07887434024977222,
+        "worst_day": -0.012481452780659374,
+        "cvar5_daily": -0.009704755514168495,
+        "max_dd_within_group": -0.01704205337101583,
+        "avg_gross_exposure": 0.31871223567581236
+      },
+      {
+        "strategy": "Always-long + gate (gate-only baseline)",
+        "period": "normal",
+        "days": 433,
+        "compounded_return": -0.05758805142118106,
+        "mean_daily_pct": -0.012397396604535864,
+        "ann_vol": 0.08104392438709401,
+        "worst_day": -0.019566403104395724,
+        "cvar5_daily": -0.010553931967956847,
+        "max_dd_within_group": -0.11517380869954874,
+        "avg_gross_exposure": 0.5198072130419973
+      },
+      {
+        "strategy": "Always-long + gate (gate-only baseline)",
+        "period": "high_vol",
+        "days": 59,
+        "compounded_return": 0.04569796154407024,
+        "mean_daily_pct": 0.07819029834740217,
+        "ann_vol": 0.11158083543786775,
+        "worst_day": -0.015375896088000607,
+        "cvar5_daily": -0.014013895407935332,
+        "max_dd_within_group": -0.04481217802474047,
+        "avg_gross_exposure": 0.4465146770175091
+      },
+      {
+        "strategy": "Always-long + gate (gate-only baseline)",
+        "period": "severe_drawdown",
+        "days": 25,
+        "compounded_return": 0.015070894051409489,
+        "mean_daily_pct": 0.06265317912850854,
+        "ann_vol": 0.12123365804672011,
+        "worst_day": -0.015343526264981922,
+        "cvar5_daily": -0.015167642611008225,
+        "max_dd_within_group": -0.03180907686399659,
+        "avg_gross_exposure": 0.38528203072423894
+      },
+      {
+        "strategy": "Always-long + gate (gate-only baseline)",
+        "period": "any stress",
+        "days": 73,
+        "compounded_return": 0.05423829391108459,
+        "mean_daily_pct": 0.07466498437905492,
+        "ann_vol": 0.10808411590197194,
+        "worst_day": -0.015375896088000607,
+        "cvar5_daily": -0.014258361295210131,
+        "max_dd_within_group": -0.04875577731252234,
+        "avg_gross_exposure": 0.44203557480782885
+      },
+      {
+        "strategy": "NIFTY 50 buy & hold",
+        "period": "normal",
+        "days": 433,
+        "compounded_return": -0.2101186972964505,
+        "mean_daily_pct": -0.051500158279842057,
+        "ann_vol": 0.122209873121301,
+        "worst_day": -0.03262077926216955,
+        "cvar5_daily": -0.017468184837648202,
+        "max_dd_within_group": -0.2464375708610992,
+        "avg_gross_exposure": 1.0
+      },
+      {
+        "strategy": "NIFTY 50 buy & hold",
+        "period": "high_vol",
+        "days": 59,
+        "compounded_return": 0.12609562809921004,
+        "mean_daily_pct": 0.2079379281752736,
+        "ann_vol": 0.1821833834918951,
+        "worst_day": -0.026037751600726855,
+        "cvar5_daily": -0.0227735527746199,
+        "max_dd_within_group": -0.05700089981715395,
+        "avg_gross_exposure": 1.0
+      },
+      {
+        "strategy": "NIFTY 50 buy & hold",
+        "period": "severe_drawdown",
+        "days": 25,
+        "compounded_return": 0.09674834625594997,
+        "mean_daily_pct": 0.3807845082271668,
+        "ann_vol": 0.23719199353550913,
+        "worst_day": -0.026037751600726855,
+        "cvar5_daily": -0.023715803597234852,
+        "max_dd_within_group": -0.04183600937978038,
+        "avg_gross_exposure": 1.0
+      },
+      {
+        "strategy": "NIFTY 50 buy & hold",
+        "period": "any stress",
+        "days": 73,
+        "compounded_return": 0.18382476393612812,
+        "mean_daily_pct": 0.23768285379527568,
+        "ann_vol": 0.17896375323048824,
+        "worst_day": -0.026037751600726855,
+        "cvar5_daily": -0.02224163160902229,
+        "max_dd_within_group": -0.05146993988674875,
+        "avg_gross_exposure": 1.0
+      },
+      {
+        "strategy": "Equal-weight universe buy & hold",
+        "period": "normal",
+        "days": 433,
+        "compounded_return": -0.15888088138484302,
+        "mean_daily_pct": -0.03469456704807552,
+        "ann_vol": 0.1628783369474379,
+        "worst_day": -0.038523075502181744,
+        "cvar5_daily": -0.02430099787545451,
+        "max_dd_within_group": -0.20698834778999797,
+        "avg_gross_exposure": 1.0
+      },
+      {
+        "strategy": "Equal-weight universe buy & hold",
+        "period": "high_vol",
+        "days": 59,
+        "compounded_return": 0.19695123922517377,
+        "mean_daily_pct": 0.31541346617180316,
+        "ann_vol": 0.22963487429197557,
+        "worst_day": -0.03074294173846707,
+        "cvar5_daily": -0.028686318285662232,
+        "max_dd_within_group": -0.054551076934091114,
+        "avg_gross_exposure": 1.0
+      },
+      {
+        "strategy": "Equal-weight universe buy & hold",
+        "period": "severe_drawdown",
+        "days": 25,
+        "compounded_return": 0.13902701829454012,
+        "mean_daily_pct": 0.5386405522025386,
+        "ann_vol": 0.29526695022038996,
+        "worst_day": -0.03074294173846707,
+        "cvar5_daily": -0.02928582988029608,
+        "max_dd_within_group": -0.054551076934091114,
+        "avg_gross_exposure": 1.0
+      },
+      {
+        "strategy": "Equal-weight universe buy & hold",
+        "period": "any stress",
+        "days": 73,
+        "compounded_return": 0.2855854273538705,
+        "mean_daily_pct": 0.3542535878840015,
+        "ann_vol": 0.22104049096345285,
+        "worst_day": -0.03074294173846707,
+        "cvar5_daily": -0.028002975758017648,
+        "max_dd_within_group": -0.054551076934091114,
+        "avg_gross_exposure": 1.0
+      }
+    ]
+  },
+  "market_down_days": {
+    "NIFTY 50 <= -1.5%": {
+      "days": 19.0,
+      "NIFTY mean return": -0.019527503919475844,
+      "SP-05 policy + gate (balanced, long/short)": -0.004141524103180133,
+      "SP-05 policy ALONE, no gate (balanced, long/short)": -0.0038807539419114406,
+      "Rule-based risk controller + gate (long-only)": -0.005418015156761435,
+      "Always-long + gate (gate-only baseline)": -0.009248811986749294
+    },
+    "NIFTY 50 <= -2.0%": {
+      "days": 7.0,
+      "NIFTY mean return": -0.025027871019941035,
+      "SP-05 policy + gate (balanced, long/short)": -0.0018239568554025976,
+      "SP-05 policy ALONE, no gate (balanced, long/short)": -0.0018397519317032548,
+      "Rule-based risk controller + gate (long-only)": -0.0021603839324642682,
+      "Always-long + gate (gate-only baseline)": -0.01051645963578342
+    }
+  },
+  "gap_loss_budget": {
+    "SP-05 policy + gate (balanced, long/short)": {
+      "mean_exposure": 0.258850004813018,
+      "p95_exposure": 0.5815245525637448,
+      "max_exposure": 0.6002007261175746,
+      "loss_at_max_exposure_gap_5%": -0.03001003630587873,
+      "loss_at_max_exposure_gap_10%": -0.06002007261175746,
+      "loss_at_max_exposure_gap_20%": -0.12004014522351492
+    },
+    "SP-05 policy ALONE, no gate (balanced, long/short)": {
+      "mean_exposure": 0.25838130638492574,
+      "p95_exposure": 0.6773393346073331,
+      "max_exposure": 0.9136972819349333,
+      "loss_at_max_exposure_gap_5%": -0.045684864096746665,
+      "loss_at_max_exposure_gap_10%": -0.09136972819349333,
+      "loss_at_max_exposure_gap_20%": -0.18273945638698666
+    },
+    "Rule-based risk controller + gate (long-only)": {
+      "mean_exposure": 0.42557316700462566,
+      "p95_exposure": 0.5587228059628091,
+      "max_exposure": 0.6146888291806217,
+      "loss_at_max_exposure_gap_5%": -0.03073444145903109,
+      "loss_at_max_exposure_gap_10%": -0.06146888291806218,
+      "loss_at_max_exposure_gap_20%": -0.12293776583612435
+    },
+    "Always-long + gate (gate-only baseline)": {
+      "mean_exposure": 0.5085871940872655,
+      "p95_exposure": 0.5782730763408906,
+      "max_exposure": 0.60436209080454,
+      "loss_at_max_exposure_gap_5%": -0.030218104540226998,
+      "loss_at_max_exposure_gap_10%": -0.060436209080453995,
+      "loss_at_max_exposure_gap_20%": -0.12087241816090799
+    }
+  },
+  "failure_analysis_test": {
+    "drawdown_episodes": {
+      "SP-05 policy + gate (balanced, long/short)": [
+        {
+          "peak_date": "2024-12-17",
+          "trough_date": "2026-08-07",
+          "depth": -0.08354982061179139,
+          "days_peak_to_trough": 404,
+          "recovered_on": "NOT RECOVERED",
+          "days_underwater": 454
+        },
+        {
+          "peak_date": "2024-11-07",
+          "trough_date": "2024-11-13",
+          "depth": -0.017554607874022632,
+          "days_peak_to_trough": 4,
+          "recovered_on": "2024-12-05",
+          "days_underwater": 18
+        },
+        {
+          "peak_date": "2024-10-18",
+          "trough_date": "2024-11-04",
+          "depth": -0.0058828824791468115,
+          "days_peak_to_trough": 11,
+          "recovered_on": "2024-11-07",
+          "days_underwater": 14
+        }
+      ],
+      "SP-05 policy ALONE, no gate (balanced, long/short)": [
+        {
+          "peak_date": "2024-12-17",
+          "trough_date": "2026-07-24",
+          "depth": -0.09856859168463372,
+          "days_peak_to_trough": 396,
+          "recovered_on": "NOT RECOVERED",
+          "days_underwater": 454
+        },
+        {
+          "peak_date": "2024-11-07",
+          "trough_date": "2024-11-13",
+          "depth": -0.017554607874022632,
+          "days_peak_to_trough": 4,
+          "recovered_on": "2024-12-05",
+          "days_underwater": 18
+        },
+        {
+          "peak_date": "2024-10-18",
+          "trough_date": "2024-11-04",
+          "depth": -0.0058828824791468115,
+          "days_peak_to_trough": 11,
+          "recovered_on": "2024-11-07",
+          "days_underwater": 14
+        }
+      ],
+      "Rule-based risk controller + gate (long-only)": [
+        {
+          "peak_date": "2024-12-17",
+          "trough_date": "2025-02-28",
+          "depth": -0.09847160533781507,
+          "days_peak_to_trough": 52,
+          "recovered_on": "2025-06-05",
+          "days_underwater": 115
+        },
+        {
+          "peak_date": "2025-10-28",
+          "trough_date": "2026-03-23",
+          "depth": -0.06888790936522349,
+          "days_peak_to_trough": 100,
+          "recovered_on": "NOT RECOVERED",
+          "days_underwater": 240
+        },
+        {
+          "peak_date": "2025-06-09",
+          "trough_date": "2025-06-19",
+          "depth": -0.035480564710925866,
+          "days_peak_to_trough": 8,
+          "recovered_on": "2025-07-23",
+          "days_underwater": 32
+        }
+      ],
+      "NIFTY 50 buy & hold": [
+        {
+          "peak_date": "2026-01-02",
+          "trough_date": "2026-10-08",
+          "depth": -0.15560104443414768,
+          "days_peak_to_trough": 184,
+          "recovered_on": "NOT RECOVERED",
+          "days_underwater": 194
+        },
+        {
+          "peak_date": "2024-10-18",
+          "trough_date": "2025-03-04",
+          "depth": -0.1115069899477219,
+          "days_peak_to_trough": 94,
+          "recovered_on": "2025-05-12",
+          "days_underwater": 137
+        },
+        {
+          "peak_date": "2025-06-27",
+          "trough_date": "2025-08-08",
+          "depth": -0.04971175222377522,
+          "days_peak_to_trough": 30,
+          "recovered_on": "2025-10-17",
+          "days_underwater": 77
+        }
+      ]
+    },
+    "calendar_years": {
+      "2024": {
+        "SP-05 policy + gate (balanced, long/short)": 0.0018688401842936742,
+        "SP-05 policy ALONE, no gate (balanced, long/short)": 0.0018688401842936742,
+        "Rule-based risk controller + gate (long-only)": 0.049423704653759115,
+        "NIFTY 50 buy & hold": -0.04464870880291849
+      },
+      "2025": {
+        "SP-05 policy + gate (balanced, long/short)": -0.012062004197900156,
+        "SP-05 policy ALONE, no gate (balanced, long/short)": -0.047523188886281376,
+        "Rule-based risk controller + gate (long-only)": 0.05189795567307476,
+        "NIFTY 50 buy & hold": 0.10508859224964939
+      },
+      "2026": {
+        "SP-05 policy + gate (balanced, long/short)": -0.04549560731829472,
+        "SP-05 policy ALONE, no gate (balanced, long/short)": -0.031282208210957285,
+        "Rule-based risk controller + gate (long-only)": -0.04929745501508942,
+        "NIFTY 50 buy & hold": -0.13508050877705102
+      }
+    },
+    "worst_days": [
+      {
+        "date": "2024-12-20 00:00:00",
+        "main_return": -0.016329923830205817,
+        "bench_return": -0.01520556915080562,
+        "gross_exposure": 0.3692374165966089,
+        "portfolio_drawdown": 0.026330064894305116,
+        "gate_overrides_that_day": 0
+      },
+      {
+        "date": "2026-09-15 00:00:00",
+        "main_return": -0.012083844349121353,
+        "bench_return": -0.011945414570677881,
+        "gross_exposure": 0.314545013628201,
+        "portfolio_drawdown": 0.029553770312539585,
+        "gate_overrides_that_day": 0
+      },
+      {
+        "date": "2024-11-13 00:00:00",
+        "main_return": -0.011708993822538427,
+        "bench_return": -0.013582562322921432,
+        "gross_exposure": 0.25148970621234257,
+        "portfolio_drawdown": 0.01755460787402252,
+        "gate_overrides_that_day": 0
+      },
+      {
+        "date": "2025-04-07 00:00:00",
+        "main_return": -0.010351824133554288,
+        "bench_return": -0.03243254628305536,
+        "gross_exposure": 0.18370300383810967,
+        "portfolio_drawdown": 0.05498517427775784,
+        "gate_overrides_that_day": 0
+      },
+      {
+        "date": "2026-06-29 00:00:00",
+        "main_return": -0.010256899371677397,
+        "bench_return": -0.004562271366810755,
+        "gross_exposure": 0.24342993795548498,
+        "portfolio_drawdown": 0.04636753306830621,
+        "gate_overrides_that_day": 0
+      }
+    ],
+    "worst_21d": {
+      "SP-05 policy + gate (balanced, long/short)": -0.03072980672749459,
+      "SP-05 policy ALONE, no gate (balanced, long/short)": -0.03298109254767512,
+      "Rule-based risk controller + gate (long-only)": -0.06338914711744026,
+      "NIFTY 50 buy & hold": -0.12365739662022923
+    },
+    "worst_trades": [
+      {
+        "symbol": "BSE",
+        "side": 1,
+        "decision_date": "2026-02-11 00:00:00",
+        "exit_date": "2026-02-16 00:00:00",
+        "bars": 2,
+        "ret": -0.11417121984921064,
+        "exit_by": "policy"
+      },
+      {
+        "symbol": "NETWEB",
+        "side": 1,
+        "decision_date": "2026-06-26 00:00:00",
+        "exit_date": "2026-06-30 00:00:00",
+        "bars": 1,
+        "ret": -0.08255056145396689,
+        "exit_by": "gate: position_stop_loss"
+      },
+      {
+        "symbol": "NETWEB",
+        "side": 1,
+        "decision_date": "2026-06-03 00:00:00",
+        "exit_date": "2026-06-09 00:00:00",
+        "bars": 3,
+        "ret": -0.07810712972240219,
+        "exit_by": "gate: position_stop_loss"
+      },
+      {
+        "symbol": "NETWEB",
+        "side": 1,
+        "decision_date": "2026-02-26 00:00:00",
+        "exit_date": "2026-03-05 00:00:00",
+        "bars": 3,
+        "ret": -0.07013670350206413,
+        "exit_by": "gate: position_stop_loss"
+      },
+      {
+        "symbol": "MAZDOCK",
+        "side": 1,
+        "decision_date": "2025-04-03 00:00:00",
+        "exit_date": "2025-04-08 00:00:00",
+        "bars": 2,
+        "ret": -0.06501312450570829,
+        "exit_by": "gate: position_stop_loss"
+      }
+    ],
+    "forced_exits": {
+      "gate: position_stop_loss": {
+        "trades": 11,
+        "mean_return": -0.061495534466333164,
+        "win_rate": 0.0,
+        "median_bars": 3.0
+      },
+      "policy": {
+        "trades": 109,
+        "mean_return": -0.00019867683826357737,
+        "win_rate": 0.3761467889908257,
+        "median_bars": 1.0
+      }
+    }
+  },
+  "training_history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.2608,
+      "val_loss": 0.1349,
+      "val_macro_f1": 0.609,
+      "lr": 0.001,
+      "duration_sec": 280.9
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.1473,
+      "val_loss": 0.1213,
+      "val_macro_f1": 0.683,
+      "lr": 0.001,
+      "duration_sec": 277.2
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.1278,
+      "val_loss": 0.1037,
+      "val_macro_f1": 0.686,
+      "lr": 0.001,
+      "duration_sec": 295.1
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.1166,
+      "val_loss": 0.0981,
+      "val_macro_f1": 0.639,
+      "lr": 0.001,
+      "duration_sec": 288.8
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.1074,
+      "val_loss": 0.0894,
+      "val_macro_f1": 0.7,
+      "lr": 0.001,
+      "duration_sec": 307.3
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.1005,
+      "val_loss": 0.093,
+      "val_macro_f1": 0.628,
+      "lr": 0.001,
+      "duration_sec": 384.3
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.0933,
+      "val_loss": 0.0793,
+      "val_macro_f1": 0.734,
+      "lr": 0.001,
+      "duration_sec": 148.4
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.0876,
+      "val_loss": 0.0736,
+      "val_macro_f1": 0.728,
+      "lr": 0.001,
+      "duration_sec": 273.4
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.082,
+      "val_loss": 0.0675,
+      "val_macro_f1": 0.716,
+      "lr": 0.001,
+      "duration_sec": 531.7
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.0747,
+      "val_loss": 0.0665,
+      "val_macro_f1": 0.742,
+      "lr": 0.001,
+      "duration_sec": 416.4
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.0705,
+      "val_loss": 0.0657,
+      "val_macro_f1": 0.742,
+      "lr": 0.001,
+      "duration_sec": 185.6
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.0669,
+      "val_loss": 0.0618,
+      "val_macro_f1": 0.778,
+      "lr": 0.001,
+      "duration_sec": 246.7
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.0649,
+      "val_loss": 0.0594,
+      "val_macro_f1": 0.789,
+      "lr": 0.001,
+      "duration_sec": 578.2
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.06223100861443413,
+      "val_loss": 0.06727073341608047,
+      "val_macro_f1": 0.8070096083833618,
+      "lr": 0.001,
+      "duration_sec": 161.411616563797
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.057963106878598535,
+      "val_loss": 0.06435732543468475,
+      "val_macro_f1": 0.7941891645283159,
+      "lr": 0.001,
+      "duration_sec": 165.16318726539612
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.057437700826591914,
+      "val_loss": 0.056368499994277954,
+      "val_macro_f1": 0.7826842094476614,
+      "lr": 0.001,
+      "duration_sec": 169.55584049224854
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.05634122007754114,
+      "val_loss": 0.05601684749126434,
+      "val_macro_f1": 0.7867524364877793,
+      "lr": 0.001,
+      "duration_sec": 174.96102666854858
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.05400205297999912,
+      "val_loss": 0.056099094450473785,
+      "val_macro_f1": 0.7676582756071652,
+      "lr": 0.001,
+      "duration_sec": 181.49446654319763
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.051441950877507525,
+      "val_loss": 0.05536388233304024,
+      "val_macro_f1": 0.7338811817287098,
+      "lr": 0.001,
+      "duration_sec": 195.89375066757202
+    },
+    {
+      "epoch": 20,
+      "train_loss": 0.05186119480381409,
+      "val_loss": 0.06039386987686157,
+      "val_macro_f1": 0.8068882394957988,
+      "lr": 0.001,
+      "duration_sec": 202.0696897506714
+    },
+    {
+      "epoch": 21,
+      "train_loss": 0.050132829605208505,
+      "val_loss": 0.06310657411813736,
+      "val_macro_f1": 0.8111948553476184,
+      "lr": 0.001,
+      "duration_sec": 213.41576862335205
+    },
+    {
+      "epoch": 22,
+      "train_loss": 0.049649857861465876,
+      "val_loss": 0.062218982726335526,
+      "val_macro_f1": 0.8066157469743195,
+      "lr": 0.0005,
+      "duration_sec": 217.26486468315125
+    },
+    {
+      "epoch": 23,
+      "train_loss": 0.04259690744082133,
+      "val_loss": 0.05578184872865677,
+      "val_macro_f1": 0.7973049010641479,
+      "lr": 0.0005,
+      "duration_sec": 228.8552942276001
+    },
+    {
+      "epoch": 24,
+      "train_loss": 0.041477932466400996,
+      "val_loss": 0.05694478005170822,
+      "val_macro_f1": 0.8100743657063938,
+      "lr": 0.0005,
+      "duration_sec": 229.5994737148285
+    },
+    {
+      "epoch": 25,
+      "train_loss": 0.03991990807520019,
+      "val_loss": 0.05343499779701233,
+      "val_macro_f1": 0.8109874507149175,
+      "lr": 0.0005,
+      "duration_sec": 240.0718376636505
+    },
+    {
+      "epoch": 26,
+      "train_loss": 0.03998755208055178,
+      "val_loss": 0.06903189420700073,
+      "val_macro_f1": 0.822723640299062,
+      "lr": 0.0005,
+      "duration_sec": 247.31488633155823
+    },
+    {
+      "epoch": 27,
+      "train_loss": 0.04006517473525471,
+      "val_loss": 0.05755209922790527,
+      "val_macro_f1": 0.7840795697951276,
+      "lr": 0.0005,
+      "duration_sec": 252.50177669525146
+    },
+    {
+      "epoch": 28,
+      "train_loss": 0.03902832984791862,
+      "val_loss": 0.060163628309965134,
+      "val_macro_f1": 0.8273036121056562,
+      "lr": 0.00025,
+      "duration_sec": 259.50327610969543
+    },
+    {
+      "epoch": 29,
+      "train_loss": 0.035916452567444905,
+      "val_loss": 0.058532629162073135,
+      "val_macro_f1": 0.8167713980137289,
+      "lr": 0.00025,
+      "duration_sec": 264.27562975883484
+    },
+    {
+      "epoch": 30,
+      "train_loss": 0.036022059200207394,
+      "val_loss": 0.06450265645980835,
+      "val_macro_f1": 0.829511768140809,
+      "lr": 0.00025,
+      "duration_sec": 267.9184958934784
+    },
+    {
+      "epoch": 31,
+      "train_loss": 0.03431906711293591,
+      "val_loss": 0.07015354931354523,
+      "val_macro_f1": 0.834020555218516,
+      "lr": 0.000125,
+      "duration_sec": 269.2356674671173
+    },
+    {
+      "epoch": 32,
+      "train_loss": 0.033578407124347155,
+      "val_loss": 0.061017412692308426,
+      "val_macro_f1": 0.8234170719699822,
+      "lr": 0.000125,
+      "duration_sec": 626.3919975757599
+    }
+  ],
+  "best_epoch": 25
+}

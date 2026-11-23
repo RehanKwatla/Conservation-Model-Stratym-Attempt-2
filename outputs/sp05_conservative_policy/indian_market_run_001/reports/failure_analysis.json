@@ -1,0 +1,237 @@
+{
+  "drawdown_episodes": {
+    "SP-05 policy + gate (balanced, long/short)": [
+      {
+        "peak_date": "2024-12-17",
+        "trough_date": "2026-08-07",
+        "depth": -0.08354982061179139,
+        "days_peak_to_trough": 404,
+        "recovered_on": "NOT RECOVERED",
+        "days_underwater": 454
+      },
+      {
+        "peak_date": "2024-11-07",
+        "trough_date": "2024-11-13",
+        "depth": -0.017554607874022632,
+        "days_peak_to_trough": 4,
+        "recovered_on": "2024-12-05",
+        "days_underwater": 18
+      },
+      {
+        "peak_date": "2024-10-18",
+        "trough_date": "2024-11-04",
+        "depth": -0.0058828824791468115,
+        "days_peak_to_trough": 11,
+        "recovered_on": "2024-11-07",
+        "days_underwater": 14
+      }
+    ],
+    "SP-05 policy ALONE, no gate (balanced, long/short)": [
+      {
+        "peak_date": "2024-12-17",
+        "trough_date": "2026-07-24",
+        "depth": -0.09856859168463372,
+        "days_peak_to_trough": 396,
+        "recovered_on": "NOT RECOVERED",
+        "days_underwater": 454
+      },
+      {
+        "peak_date": "2024-11-07",
+        "trough_date": "2024-11-13",
+        "depth": -0.017554607874022632,
+        "days_peak_to_trough": 4,
+        "recovered_on": "2024-12-05",
+        "days_underwater": 18
+      },
+      {
+        "peak_date": "2024-10-18",
+        "trough_date": "2024-11-04",
+        "depth": -0.0058828824791468115,
+        "days_peak_to_trough": 11,
+        "recovered_on": "2024-11-07",
+        "days_underwater": 14
+      }
+    ],
+    "Rule-based risk controller + gate (long-only)": [
+      {
+        "peak_date": "2024-12-17",
+        "trough_date": "2025-02-28",
+        "depth": -0.09847160533781507,
+        "days_peak_to_trough": 52,
+        "recovered_on": "2025-06-05",
+        "days_underwater": 115
+      },
+      {
+        "peak_date": "2025-10-28",
+        "trough_date": "2026-03-23",
+        "depth": -0.06888790936522349,
+        "days_peak_to_trough": 100,
+        "recovered_on": "NOT RECOVERED",
+        "days_underwater": 240
+      },
+      {
+        "peak_date": "2025-06-09",
+        "trough_date": "2025-06-19",
+        "depth": -0.035480564710925866,
+        "days_peak_to_trough": 8,
+        "recovered_on": "2025-07-23",
+        "days_underwater": 32
+      }
+    ],
+    "NIFTY 50 buy & hold": [
+      {
+        "peak_date": "2026-01-02",
+        "trough_date": "2026-10-08",
+        "depth": -0.15560104443414768,
+        "days_peak_to_trough": 184,
+        "recovered_on": "NOT RECOVERED",
+        "days_underwater": 194
+      },
+      {
+        "peak_date": "2024-10-18",
+        "trough_date": "2025-03-04",
+        "depth": -0.1115069899477219,
+        "days_peak_to_trough": 94,
+        "recovered_on": "2025-05-12",
+        "days_underwater": 137
+      },
+      {
+        "peak_date": "2025-06-27",
+        "trough_date": "2025-08-08",
+        "depth": -0.04971175222377522,
+        "days_peak_to_trough": 30,
+        "recovered_on": "2025-10-17",
+        "days_underwater": 77
+      }
+    ]
+  },
+  "calendar_years": {
+    "2024": {
+      "SP-05 policy + gate (balanced, long/short)": 0.0018688401842936742,
+      "SP-05 policy ALONE, no gate (balanced, long/short)": 0.0018688401842936742,
+      "Rule-based risk controller + gate (long-only)": 0.049423704653759115,
+      "NIFTY 50 buy & hold": -0.04464870880291849
+    },
+    "2025": {
+      "SP-05 policy + gate (balanced, long/short)": -0.012062004197900156,
+      "SP-05 policy ALONE, no gate (balanced, long/short)": -0.047523188886281376,
+      "Rule-based risk controller + gate (long-only)": 0.05189795567307476,
+      "NIFTY 50 buy & hold": 0.10508859224964939
+    },
+    "2026": {
+      "SP-05 policy + gate (balanced, long/short)": -0.04549560731829472,
+      "SP-05 policy ALONE, no gate (balanced, long/short)": -0.031282208210957285,
+      "Rule-based risk controller + gate (long-only)": -0.04929745501508942,
+      "NIFTY 50 buy & hold": -0.13508050877705102
+    }
+  },
+  "worst_days": [
+    {
+      "date": "2024-12-20 00:00:00",
+      "main_return": -0.016329923830205817,
+      "bench_return": -0.01520556915080562,
+      "gross_exposure": 0.3692374165966089,
+      "portfolio_drawdown": 0.026330064894305116,
+      "gate_overrides_that_day": 0
+    },
+    {
+      "date": "2026-09-15 00:00:00",
+      "main_return": -0.012083844349121353,
+      "bench_return": -0.011945414570677881,
+      "gross_exposure": 0.314545013628201,
+      "portfolio_drawdown": 0.029553770312539585,
+      "gate_overrides_that_day": 0
+    },
+    {
+      "date": "2024-11-13 00:00:00",
+      "main_return": -0.011708993822538427,
+      "bench_return": -0.013582562322921432,
+      "gross_exposure": 0.25148970621234257,
+      "portfolio_drawdown": 0.01755460787402252,
+      "gate_overrides_that_day": 0
+    },
+    {
+      "date": "2025-04-07 00:00:00",
+      "main_return": -0.010351824133554288,
+      "bench_return": -0.03243254628305536,
+      "gross_exposure": 0.18370300383810967,
+      "portfolio_drawdown": 0.05498517427775784,
+      "gate_overrides_that_day": 0
+    },
+    {
+      "date": "2026-06-29 00:00:00",
+      "main_return": -0.010256899371677397,
+      "bench_return": -0.004562271366810755,
+      "gross_exposure": 0.24342993795548498,
+      "portfolio_drawdown": 0.04636753306830621,
+      "gate_overrides_that_day": 0
+    }
+  ],
+  "worst_21d": {
+    "SP-05 policy + gate (balanced, long/short)": -0.03072980672749459,
+    "SP-05 policy ALONE, no gate (balanced, long/short)": -0.03298109254767512,
+    "Rule-based risk controller + gate (long-only)": -0.06338914711744026,
+    "NIFTY 50 buy & hold": -0.12365739662022923
+  },
+  "worst_trades": [
+    {
+      "symbol": "BSE",
+      "side": 1,
+      "decision_date": "2026-02-11 00:00:00",
+      "exit_date": "2026-02-16 00:00:00",
+      "bars": 2,
+      "ret": -0.11417121984921064,
+      "exit_by": "policy"
+    },
+    {
+      "symbol": "NETWEB",
+      "side": 1,
+      "decision_date": "2026-06-26 00:00:00",
+      "exit_date": "2026-06-30 00:00:00",
+      "bars": 1,
+      "ret": -0.08255056145396689,
+      "exit_by": "gate: position_stop_loss"
+    },
+    {
+      "symbol": "NETWEB",
+      "side": 1,
+      "decision_date": "2026-06-03 00:00:00",
+      "exit_date": "2026-06-09 00:00:00",
+      "bars": 3,
+      "ret": -0.07810712972240219,
+      "exit_by": "gate: position_stop_loss"
+    },
+    {
+      "symbol": "NETWEB",
+      "side": 1,
+      "decision_date": "2026-02-26 00:00:00",
+      "exit_date": "2026-03-05 00:00:00",
+      "bars": 3,
+      "ret": -0.07013670350206413,
+      "exit_by": "gate: position_stop_loss"
+    },
+    {
+      "symbol": "MAZDOCK",
+      "side": 1,
+      "decision_date": "2025-04-03 00:00:00",
+      "exit_date": "2025-04-08 00:00:00",
+      "bars": 2,
+      "ret": -0.06501312450570829,
+      "exit_by": "gate: position_stop_loss"
+    }
+  ],
+  "forced_exits": {
+    "gate: position_stop_loss": {
+      "trades": 11,
+      "mean_return": -0.061495534466333164,
+      "win_rate": 0.0,
+      "median_bars": 3.0
+    },
+    "policy": {
+      "trades": 109,
+      "mean_return": -0.00019867683826357737,
+      "win_rate": 0.3761467889908257,
+      "median_bars": 1.0
+    }
+  }
+}
